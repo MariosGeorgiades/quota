@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Quotes App</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+            font-family: 'Helvetica', sans-serif;
+            background: url('/image.png')
+        }
+
+        .container {
+            margin-left: 15rem; 
+            margin-top: -3rem;
+            text-align: center;
+            background: #06c1da;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h1 {
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        button {
+            background: #007bff;
+            color: #ffffff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        button:hover {
+            background: #0056b3;
+            transform: scale(1.1);
+        }
+
+        #quoteText {
+            margin-top: 20px;
+            font-size: 18px;
+            opacity: 0;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        const quotes = [
+            "Η δύναμη στην ζωή δεν έρχεται από τι μπορείς να κάνεις τώρα αλλά έρχεται από να κάνεις τα πραγραμα που πίστευες ότι δεν θα μπορούσες",
+            "Αυτός που δεν είναι ευχαριστημένος με αυτό που έχει δεν θα είναι ευχαριστημένος με αυτό που θα ήθελε να έχει — Σωκράτης",
+            "Η ζωή είναι μια βόλτα απόλαυσε την γιατί δεν υπάρχει εισιτήριο επιστροφής",
+            "Πρέπει καθημερινά Να μην είσαι σκλάβος του εαυτού σου πρέπει να ξεπερνάς τα όρια σου",
+            "Όλα ξεκινούν και τελειώνουν στο μυαλό σου. Σε ότι δίνεις δύναμη αυτό σε εξουσιάζει.",
+            "Τα όρια του καθενός είναι αυτά που ο ίδιος βάζει στον εαυτό του",
+            "Δεν χρειάζεται να λες τι ξέρεις. Είναι όμως απαραίτητο να ξέρεις τι λες",
+            "Το μεγαλύτερο λάθος που μπορείς να κάνεις στην ζωή σου είναι να ζεις με τον φόβο μήπως κάνεις λάθος",
+            "Κλείσε το παράθυρο που σε ενοχλεί όσο όμορφη και αν είναι η θέα που βλέπεις.",
+            "Ο κόσμος δεν έγινε χειρότερος απλά άνοιξαν τα μάτια σου",
+        ];
+
+        const extraQuotes = [
+            "Η ζωή είναι τέχνη, ζήσε την όμορφα.",
+            "Η αγάπη δεν έχει όρια, όπως και η δύναμή σου.",
+            "Το μέλλον ανήκει σε αυτούς που πιστεύουν στα όνειρά τους.",
+            "Μη φοβάσαι να αποτύχεις, φοβάσαι να μην προσπαθήσεις.",
+            "Η υπομονή είναι πικρή, αλλά ο καρπός της είναι γλυκός.",
+            "Το ταξίδι χιλιάδων μιλίων ξεκινάει με ένα βήμα.",
+            "Κάνε κάθε μέρα να μετράει.",
+            "Τα μεγάλα πράγματα χρειάζονται χρόνο.",
+            "Η πίστη κινεί βουνά.",
+            "Όλα είναι δυνατά για αυτόν που πιστεύει."
+        ];
+
+        let previousIndex = -1;
+
+        $(document).ready(function () {
+            $('#quoteButton').click(function () {
+                setTimeout(() => {
+                    $('#quoteText').text('');
+                }, 5000)
+                document.getElementsByTagName("audio")[0].play()
+
+                let combinedQuotes = quotes.concat(extraQuotes);
+                let randomIndex;
+                do {
+                    randomIndex = Math.floor(Math.random() * combinedQuotes.length);
+                } while (randomIndex === previousIndex);
+                previousIndex = randomIndex;
+                
+                $('#quoteText').fadeOut(function () {
+                    $(this).text(combinedQuotes[randomIndex]).fadeIn().css('opacity', 1).css('transform', 'translateY(0)');
+                });
+            });
+        });
+    </script>
+</head>
+
+<body>
+    <div class="container">
+        <h1>Παν ουλα λάθος?</h1>
+        <button id="quoteButton">Σηκου Πανω Ρεεεεεε</button>
+        <p id="quoteText"></p>
+    </div>
+    <audio>
+        <source src="/STAND_UP.mp3" type="audio/mpeg">
+    </audio>
+</body>
+
+</html>
