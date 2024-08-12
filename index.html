@@ -14,33 +14,34 @@
             background-color: #f0f0f0;
             margin: 0;
             font-family: 'Helvetica', sans-serif;
-            background: url('/quota.github.io/image.png')
+            background: url('/quota.github.io/image.png');
         }
 
         .container {
-            margin-left: 15rem; 
-            margin-top: -3rem;
-            text-align: center;
-            background: #06c1da;
+            max-width: 90%;
+            width: 100%;
             padding: 20px;
+            background: #06c1da;
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            text-align: center;
             animation: fadeIn 2s ease-in-out;
         }
 
         h1 {
-            font-size: 24px;
-            margin-bottom: 20px;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
         }
 
         button {
             background: #007bff;
             color: #ffffff;
-            padding: 10px 20px;
+            padding: 0.75rem 1.5rem;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: background 0.6s ease, transform 0.6s ease;
+            font-size: 1rem;
         }
 
         button:hover {
@@ -49,10 +50,11 @@
         }
 
         #quoteText {
-            margin-top: 20px;
-            font-size: 18px;
+            margin-top: 1.5rem;
+            font-size: 1.2rem;
             opacity: 0;
             transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+            line-height: 1.4;
         }
 
         @keyframes fadeIn {
@@ -63,11 +65,29 @@
                 opacity: 1;
             }
         }
+
+        @media (min-width: 768px) {
+            .container {
+                width: 50%;
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            button {
+                font-size: 1.25rem;
+            }
+
+            #quoteText {
+                font-size: 1.5rem;
+            }
+        }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         const quotes = [
-            "Η δύναμη στην ζωή δεν έρχεται από τι μπορείς να κάνεις τώρα αλλά έρχεται από να κάνεις τα πραγραμα που πίστευες ότι δεν θα μπορούσες",
+            "Η δύναμη στην ζωή δεν έρχεται από τι μπορείς να κάνεις τώρα αλλά έρχεται από να κάνεις τα πράγραμα που πίστευες ότι δεν θα μπορούσες",
             "Αυτός που δεν είναι ευχαριστημένος με αυτό που έχει δεν θα είναι ευχαριστημένος με αυτό που θα ήθελε να έχει — Σωκράτης",
             "Η ζωή είναι μια βόλτα απόλαυσε την γιατί δεν υπάρχει εισιτήριο επιστροφής",
             "Πρέπει καθημερινά Να μην είσαι σκλάβος του εαυτού σου πρέπει να ξεπερνάς τα όρια σου",
