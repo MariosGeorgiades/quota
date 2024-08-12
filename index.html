@@ -56,10 +56,13 @@
             width: 100%;
             max-width: 800px;
             margin-top: 20px;
+            display: flex;
+            justify-content: center;
         }
 
         .content.active {
-            display: block;
+            display: flex;
+            justify-content: center;
         }
 
         .container,
@@ -131,6 +134,19 @@
         }
 
         @media (min-width: 768px) {
+            .content {
+                justify-content: center;
+                align-items: center;
+                display: flex;
+                flex-direction: column;
+            }
+
+            .container,
+            .daily-quotes-container {
+                max-width: 50%;
+                margin: auto;
+            }
+
             h1 {
                 font-size: 2.5rem;
             }
@@ -141,11 +157,6 @@
 
             #quoteText {
                 font-size: 1.75rem;
-            }
-
-            .container,
-            .daily-quotes-container {
-                max-width: 50%;
             }
         }
     </style>
@@ -234,10 +245,9 @@
                 <p><strong>Date:</strong> August 11, 2024</p>
                 <p>Το μέλλον ανήκει σε αυτούς που πιστεύουν στα όνειρά τους.</p>
             </div>
-            <!-- Add more daily quote posts here -->
+            <!-- Additional quotes can be added here -->
         </div>
     </div>
 </body>
 
 </html>
-
