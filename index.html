@@ -11,17 +11,17 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f0f0f0;
             margin: 0;
             font-family: 'Helvetica', sans-serif;
-            background: url('/quota.github.io/image.png');
+            background: url('/quota.github.io/image.png') no-repeat center center fixed;
+            background-size: cover;
         }
 
         .container {
             max-width: 90%;
             width: 100%;
             padding: 20px;
-            background: #06c1da;
+            background: rgba(6, 193, 218, 0.8); /* Semi-transparent background for better readability */
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             text-align: center;
@@ -31,6 +31,7 @@
         h1 {
             font-size: 1.5rem;
             margin-bottom: 1rem;
+            color: #fff;
         }
 
         button {
@@ -55,6 +56,7 @@
             opacity: 0;
             transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
             line-height: 1.4;
+            color: #fff;
         }
 
         @keyframes fadeIn {
@@ -116,10 +118,7 @@
 
         $(document).ready(function () {
             $('#quoteButton').click(function () {
-                setTimeout(() => {
-                    $('#quoteText').text('');
-                }, 5000)
-                document.getElementsByTagName("audio")[0].play()
+                document.getElementsByTagName("audio")[0].play();
 
                 let combinedQuotes = quotes.concat(extraQuotes);
                 let randomIndex;
@@ -127,7 +126,7 @@
                     randomIndex = Math.floor(Math.random() * combinedQuotes.length);
                 } while (randomIndex === previousIndex);
                 previousIndex = randomIndex;
-                
+
                 $('#quoteText').fadeOut(function () {
                     $(this).text(combinedQuotes[randomIndex]).fadeIn().css('opacity', 1).css('transform', 'translateY(0)');
                 });
