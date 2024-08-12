@@ -12,13 +12,17 @@
             background: url('/quota.github.io/image.png') no-repeat center center fixed;
             background-size: cover;
             color: #fff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .navbar {
             display: flex;
             justify-content: center;
-            background-color: rgba(0, 0, 0, 0.7);
+            background-color: rgba(0, 0, 0, 0.8);
             padding: 10px;
+            width: 100%;
         }
 
         .navbar a {
@@ -27,37 +31,50 @@
             text-decoration: none;
             text-align: center;
             font-size: 18px;
-            transition: background 0.3s;
+            transition: background 0.3s, transform 0.3s;
+            margin: 0 10px;
+            border-radius: 5px;
+        }
+
+        .navbar a:nth-child(1) {
+            background-color: #ff6666;
+        }
+
+        .navbar a:nth-child(2) {
+            background-color: #66cc66;
         }
 
         .navbar a:hover {
-            background-color: #575757;
-            border-radius: 5px;
+            transform: scale(1.1);
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .content {
             display: none;
             padding: 20px;
             text-align: center;
+            width: 100%;
+            max-width: 800px;
+            margin-top: 20px;
         }
 
         .content.active {
             display: block;
         }
 
-        .container {
-            max-width: 90%;
+        .container,
+        .daily-quotes-container {
             width: 100%;
             padding: 20px;
-            background: rgba(6, 193, 218, 0.8);
+            background: rgba(6, 193, 218, 0.9);
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             animation: fadeIn 2s ease-in-out;
+            text-align: center;
         }
 
         h1 {
-            font-size: 1.5rem;
+            font-size: 2rem;
             margin-bottom: 1rem;
         }
 
@@ -69,7 +86,7 @@
             border-radius: 5px;
             cursor: pointer;
             transition: background 0.6s ease, transform 0.6s ease;
-            font-size: 1rem;
+            font-size: 1.25rem;
         }
 
         button:hover {
@@ -79,21 +96,10 @@
 
         #quoteText {
             margin-top: 1.5rem;
-            font-size: 1.2rem;
+            font-size: 1.5rem;
             opacity: 0;
             transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
             line-height: 1.4;
-        }
-
-        .daily-quotes-container {
-            max-width: 90%;
-            width: 100%;
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-            text-align: left;
-            animation: fadeIn 2s ease-in-out;
         }
 
         .quote-post {
@@ -101,32 +107,35 @@
             padding: 15px;
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 5px;
+            text-align: left;
         }
 
         @keyframes fadeIn {
             from {
                 opacity: 0;
             }
+
             to {
                 opacity: 1;
             }
         }
 
         @media (min-width: 768px) {
-            .container, .daily-quotes-container {
-                width: 50%;
-            }
-
             h1 {
-                font-size: 2rem;
+                font-size: 2.5rem;
             }
 
             button {
-                font-size: 1.25rem;
+                font-size: 1.5rem;
             }
 
             #quoteText {
-                font-size: 1.5rem;
+                font-size: 1.75rem;
+            }
+
+            .container,
+            .daily-quotes-container {
+                max-width: 50%;
             }
         }
     </style>
@@ -185,7 +194,7 @@
 </head>
 
 <body>
-    <!-- Navigation bar with tabs -->
+    <!-- Navigation bar with colorful tabs -->
     <div class="navbar">
         <a href="#" data-target="quoteGenerator">Quote Generator</a>
         <a href="#" data-target="dailyQuotes">Daily Quotes</a>
