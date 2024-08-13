@@ -7,144 +7,166 @@
     <title>Quota</title>
     <style>
         body {
+            margin: 0;
+            font-family: 'Georgia', serif; 
             background: url('/quota.github.io/image.png') no-repeat center center fixed;
             background-size: cover;
             color: #fff;
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
-        }
-
-        .navbar {
-            background: rgba(0, 0, 0, 0.7);
-            padding: 10px;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            left: 0;
             display: flex;
-            justify-content: space-around;
+            flex-direction: column;
             align-items: center;
         }
 
-        .navbar a {
-            color: #fff;
-            text-decoration: none;
+        .navbar {
+            display: flex;
+            justify-content: center;
+            background: linear-gradient(135deg, #333, #000);
             padding: 10px;
-            font-size: 1.2rem;
+            width: 100%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border-bottom: 2px solid #ffcc66;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+        }
+
+        .navbar a {
+            color: #ffffff;
+            padding: 12px 16px;
+            text-decoration: none;
+            text-align: center;
+            font-size: 16px;
+            transition: background 0.3s, transform 0.3s;
+            margin: 0 5px;
+            border-radius: 5px;
+        }
+
+        .navbar a:nth-child(1) {
+            background-color: #ff9966;
+        }
+
+        .navbar a:nth-child(2) {
+            background-color: #ffcc66;
         }
 
         .navbar a:hover {
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 5px;
+            transform: scale(1.1);
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
         }
 
         .content {
             display: none;
-            padding: 20px;
+            padding: 15px;
+            text-align: center;
+            width: 100%;
+            max-width: 300px;
+            margin-top: 60px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .content.active {
             display: block;
         }
 
-        .home-content {
-            text-align: center;
-            padding-top: 60px;
-        }
-
-        #quoteText {
-            font-size: 1.5rem;
-            margin-top: 20px;
-            transition: opacity 0.6s ease, transform 0.6s ease;
-        }
-
+        .container,
         .daily-quotes-container {
-            padding: 20px;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 10px;
-            margin-top: 20px;
-        }
-
-        .quote-post {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 15px;
-            border-radius: 5px;
-            margin-bottom: 20px;
-        }
-
-        .daily-challenge-container {
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            padding: 15px;
-            margin-top: 20px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-
-        .comment-section {
-            margin-top: 20px;
-            background: rgba(255, 204, 128, 0.9);
-            padding: 15px;
-            border-radius: 10px;
-        }
-
-        .comment-section h2 {
-            font-size: 1.25rem;
-            margin-bottom: 10px;
-        }
-
-        .comment {
-            background: rgba(255, 255, 255, 0.2);
+            width: 100%;
+            max-width: 300px;
             padding: 10px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            text-align: left;
+            background: rgba(255, 204, 128, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 2s ease-in-out;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        .social-share {
-            margin-top: 20px;
-            display: flex;
-            justify-content: center;
-        }
-
-        .social-share a {
-            color: #fff;
-            margin: 0 10px;
+        h1 {
             font-size: 1.5rem;
-            text-decoration: none;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-family: 'Arial', sans-serif; 
         }
 
-        .social-share a:hover {
-            color: #ffcc66;
-        }
-
-        .subscribe-button {
-            background: #ff9966;
-            color: #fff;
+        button {
+            background: #ffcc66;
+            color: #333;
             padding: 0.5rem 1rem;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: background 0.6s ease, transform 0.6s ease;
             font-size: 1rem;
-        }
-
-        .subscribe-button:hover {
-            background: #ffcc66;
-            transform: scale(1.1);
-        }
-
-        button {
-            background: #ff9966;
-            color: #fff;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
-            cursor: pointer;
+            font-family: 'Courier New', monospace; 
         }
 
         button:hover {
-            background: #ffcc66;
+            background: #ff9966;
+            transform: scale(1.1);
+        }
+
+        #quoteText {
+            margin-top: 1rem;
+            font-size: 1.25rem;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+            line-height: 1.4;
+            color: #333;
+            font-family: 'Times New Roman', serif; 
+        }
+
+        .quote-post {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            text-align: left;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .navbar a {
+                padding: 14px 20px;
+                font-size: 18px;
+                margin: 0 10px;
+            }
+
+            .content {
+                padding: 20px;
+                max-width: 500px;
+                margin-top: 80px;
+            }
+
+            .container,
+            .daily-quotes-container {
+                max-width: 500px;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            button {
+                font-size: 1.5rem;
+                padding: 0.75rem 1.5rem;
+            }
+
+            #quoteText {
+                font-size: 1.75rem;
+            }
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -187,20 +209,26 @@
             "Κάθε μέρα είναι μια νέα ευκαιρία να αλλάξεις τη ζωή σου.",
             "Το μόνο που μπορείς να ελέγξεις είναι ο τρόπος που αντιδράς στις καταστάσεις. Κάνε την αντίδρασή σου θετική.",
             "Μην περιμένεις την τέλεια στιγμή. Πάρε την στιγμή και κάνε την τέλεια.",
-            "Η ζωή δεν είναι το άθροισμα των ημερών σου, αλλά το πόσο καλά ζεις κάθε μέρα."
+            "Η ζωή δεν είναι το να περιμένεις να περάσει η καταιγίδα, αλλά το να μάθεις να χορεύεις στη βροχή.",
+            "Η μεγαλύτερη περιπέτεια που μπορείς να ζήσεις είναι να ζήσεις τη ζωή των ονείρων σου.",
+            "Η επιτυχία συνήθως έρχεται σε αυτούς που είναι απασχολημένοι με το να την αναζητούν.",
+            "Η αλλαγή είναι η μοναδική σταθερά στη ζωή. Αγκάλιασέ την και προχώρα μπροστά.",
+            "Η αληθινή δύναμη βρίσκεται στη συνεχή προσπάθεια, όχι στην τελειότητα.",
+            "Κάθε αποτυχία είναι ένα βήμα προς την επιτυχία. Μην εγκαταλείπεις ποτέ."
         ];
 
+        // Tips for daily quotes
         const dailyTips = [
-            "Start your day with a positive affirmation.",
-            "Make a to-do list to organize your tasks.",
-            "Take a break every hour to stay productive.",
-            "Drink plenty of water to stay hydrated.",
-            "Practice mindfulness or meditation for a few minutes.",
-            "Exercise or stretch to keep your body active.",
-            "Set small, achievable goals for the day.",
-            "Connect with a friend or family member.",
-            "Read or listen to something inspirational.",
-            "Reflect on your progress and achievements."
+            "Ξεκίνα την ημέρα σου με ευγνωμοσύνη. Σκέψου τρία πράγματα για τα οποία είσαι ευγνώμον.",
+            "Θέσε μικρούς στόχους και γιορτάστε κάθε μικρή επιτυχία.",
+            "Κάνε καθημερινή άσκηση, ακόμα και αν είναι μόνο για λίγα λεπτά.",
+            "Πάρε χρόνο για να κάνεις κάτι που αγαπάς κάθε μέρα.",
+            "Μάθε να λες ‘όχι’ όταν χρειάζεται, για να προστατεύεις τον εαυτό σου.",
+            "Δώσε προτεραιότητα στην ποιότητα των σχέσεών σου.",
+            "Διατήρησε θετική στάση, ακόμα και όταν αντιμετωπίζεις προκλήσεις.",
+            "Δώσε χρόνο στον εαυτό σου να ξεκουραστεί και να ανανεωθεί.",
+            "Δημιούργησε μια ρουτίνα που σε βοηθά να παραμένεις οργανωμένος και συγκεντρωμένος.",
+            "Μάθε κάτι νέο κάθε μέρα για να διευρύνεις τις γνώσεις σου."
         ];
 
         $(document).ready(function () {
@@ -223,7 +251,7 @@
                 const dayOfMonth = today.getDate();
                 const dailyQuoteIndex = dayOfMonth % quotes.length;
                 const dailyQuote = quotes[dailyQuoteIndex];
-                $('.daily-quotes-container').html(`
+                $('.daily-quotes-container').html(
                     <h1>Daily Quote</h1>
                     <div class="quote-post">
                         <p>“${dailyQuote}”</p>
@@ -232,35 +260,7 @@
                     <div class="quote-post">
                         <p>${getDailyTip()}</p>
                     </div>
-                    <div class="daily-challenge-container">
-                        <h2>Daily Challenge</h2>
-                        <p>Challenge yourself today by setting a small but meaningful goal and achieving it!</p>
-                    </div>
-                `);
-            }
-
-            function displayComments() {
-                $('.comment-section').html(`
-                    <h2>Comments</h2>
-                    <div class="comment">
-                        <p><strong>User1:</strong> This is an inspiring site! I love the quotes!</p>
-                    </div>
-                    <div class="comment">
-                        <p><strong>User2:</strong> The daily challenges are a great idea!</p>
-                    </div>
-                    <textarea id="commentInput" rows="4" style="width: 100%;" placeholder="Add your comment..."></textarea>
-                    <button id="submitCommentButton" class="subscribe-button">Submit</button>
-                `);
-            }
-
-            function displaySubscription() {
-                $('.daily-quotes-container').append(`
-                    <div class="subscribe-section">
-                        <h2>Subscribe for More!</h2>
-                        <p>Sign up for our premium content and daily updates directly to your inbox.</p>
-                        <button class="subscribe-button">Subscribe Now</button>
-                    </div>
-                `);
+                );
             }
 
             $('#showQuoteButton').click(function () {
@@ -278,20 +278,6 @@
                 $('.content').removeClass('active');
                 $('.daily-quotes-content').addClass('active');
                 displayDailyContent();
-                displayComments();
-                displaySubscription();
-            });
-
-            $('#submitCommentButton').click(function () {
-                const comment = $('#commentInput').val();
-                if (comment) {
-                    $('.comment-section').append(`
-                        <div class="comment">
-                            <p><strong>Anonymous:</strong> ${comment}</p>
-                        </div>
-                    `);
-                    $('#commentInput').val('');
-                }
             });
 
             $('#homeButton').click();
@@ -309,20 +295,13 @@
             <h1>Παν ουλα λάθος</h1>
             <button id="showQuoteButton">Σήκου Πάνω ΡΕΕΕΕΕ</button>
             <p id="quoteText"></p>
+           
             <audio id="audioPlayer" src="/quota.github.io/STAND_UP.mp3" preload="auto"></audio>
         </div>
     </div>
     <div class="content daily-quotes-content">
         <div class="daily-quotes-container">
-            <!-- Daily Quotes, Tips, and Subscription section will be dynamically added here -->
-        </div>
-        <div class="comment-section">
-            <!-- Comments will be dynamically added here -->
-        </div>
-        <div class="social-share">
-            <a href="https://facebook.com" target="_blank">Facebook</a>
-            <a href="https://twitter.com" target="_blank">Twitter</a>
-            <a href="https://instagram.com" target="_blank">Instagram</a>
+           
         </div>
     </div>
 </body>
