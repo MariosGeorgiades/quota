@@ -5,11 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quota</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Lora:wght@400&family=Roboto:wght@400&family=Merriweather:wght@400&display=swap">
     <style>
         body {
             margin: 0;
-            font-family: 'Lora', serif; /* Use Lora for body text */
+            font-family: 'Georgia', serif; /* Updated font family */
             background: url('/quota.github.io/image.png') no-repeat center center fixed;
             background-size: cover;
             color: #fff;
@@ -33,7 +32,6 @@
         }
 
         .navbar a {
-            font-family: 'Playfair Display', serif; /* Use Playfair Display for navbar links */
             color: #ffffff;
             padding: 12px 16px;
             text-decoration: none;
@@ -44,8 +42,12 @@
             border-radius: 5px;
         }
 
-        .navbar a.active {
+        .navbar a:nth-child(1) {
             background-color: #ff9966;
+        }
+
+        .navbar a:nth-child(2) {
+            background-color: #ffcc66;
         }
 
         .navbar a:hover {
@@ -83,14 +85,13 @@
         }
 
         h1 {
-            font-family: 'Playfair Display', serif; /* Use Playfair Display for headings */
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
             color: #333;
+            font-family: 'Arial', sans-serif; /* Updated font family */
         }
 
         button {
-            font-family: 'Roboto', sans-serif; /* Use Roboto for buttons */
             background: #ffcc66;
             color: #333;
             padding: 0.5rem 1rem;
@@ -99,6 +100,7 @@
             cursor: pointer;
             transition: background 0.6s ease, transform 0.6s ease;
             font-size: 1rem;
+            font-family: 'Courier New', monospace; /* Updated font family */
         }
 
         button:hover {
@@ -107,17 +109,16 @@
         }
 
         #quoteText {
-            font-family: 'Merriweather', serif; /* Use Merriweather for quotes */
             margin-top: 1rem;
             font-size: 1.25rem;
             opacity: 0;
             transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
             line-height: 1.4;
             color: #333;
+            font-family: 'Times New Roman', serif; /* Updated font family */
         }
 
         .quote-post {
-            font-family: 'Merriweather', serif; /* Use Merriweather for quote posts */
             margin-bottom: 10px;
             padding: 10px;
             background-color: rgba(255, 255, 255, 0.1);
@@ -170,30 +171,6 @@
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        $(document).ready(function () {
-            $('.navbar a').click(function () {
-                $('.navbar a').removeClass('active');
-                $(this).addClass('active');
-                $('.content').removeClass('active');
-                $('#' + $(this).data('target')).addClass('active');
-            });
-
-            $('#quoteButton').click(function () {
-                document.getElementsByTagName("audio")[0].play();
-
-                let combinedQuotes = quotes.concat(extraQuotes);
-                let randomIndex;
-                do {
-                    randomIndex = Math.floor(Math.random() * combinedQuotes.length);
-                } while (randomIndex === previousIndex);
-                previousIndex = randomIndex;
-
-                $('#quoteText').fadeOut(function () {
-                    $(this).text(combinedQuotes[randomIndex]).fadeIn().css('opacity', 1).css('transform', 'translateY(0)');
-                });
-            });
-        });
-
         const quotes = [
             "Η δύναμη στην ζωή δεν έρχεται από τι μπορείς να κάνεις τώρα αλλά έρχεται από να κάνεις τα πράγραμα που πίστευες ότι δεν θα μπορούσες",
             "Αυτός που δεν είναι ευχαριστημένος με αυτό που έχει δεν θα είναι ευχαριστημένος με αυτό που θα ήθελε να έχει — Σωκράτης",
@@ -205,54 +182,110 @@
             "Το μεγαλύτερο λάθος που μπορείς να κάνεις στην ζωή σου είναι να ζεις με τον φόβο μήπως κάνεις λάθος",
             "Κλείσε το παράθυρο που σε ενοχλεί όσο όμορφη και αν είναι η θέα που βλέπεις.",
             "Ο κόσμος δεν έγινε χειρότερος απλά άνοιξαν τα μάτια σου",
+            // Added philosophical quotes
+            "Η ζωή είναι το αποτέλεσμα των επιλογών που κάνουμε.",
+            "Η γνώση μας είναι περιορισμένη, αλλά η άγνοιά μας είναι ατελείωτη.",
+            "Η αληθινή σοφία δεν είναι να γνωρίζεις πολλά, αλλά να κατανοείς την αξία της γνώσης.",
+            "Η πραγματική σοφία έρχεται από την εμπειρία και την αυτογνωσία.",
+            "Ο νους είναι σαν ένα ανοιχτό βιβλίο. Η κατανόηση έρχεται όταν το διαβάζεις με προσοχή.",
+            "Η ζωή είναι σαν ένα ποτάμι που ρέει συνεχώς, και εμείς είμαστε οι ταξιδιώτες του.",
+            "Η αυτογνωσία είναι το πρώτο βήμα προς την εσωτερική ειρήνη.",
+            "Η ευτυχία δεν είναι μια κατάσταση αλλά μια διαδικασία.",
+            "Η αλήθεια δεν έχει να κάνει με αυτό που λέγεται, αλλά με αυτό που κατανοείται.",
+            "Η σκέψη είναι το εργαλείο που χρησιμοποιούμε για να κατανοήσουμε τον κόσμο γύρω μας.",
+            "Η φιλοσοφία είναι η τέχνη του να ζεις σύμφωνα με την αλήθεια που ανακαλύπτεις.",
+            "Η ζωή είναι η συνεχής αναζήτηση για νόημα μέσα από τις εμπειρίες μας.",
+            "Η εσωτερική γαλήνη προέρχεται από την αποδοχή της πραγματικότητας.",
+            "Η φιλοσοφία μας διδάσκει ότι η αλήθεια δεν είναι πάντα απλή, αλλά είναι πάντα πολύτιμη.",
+            "Η ζωή είναι γεμάτη από μικρές αλήθειες που σχηματίζουν μια μεγαλύτερη εικόνα.",
+            "Η αληθινή ελευθερία έρχεται από την εσωτερική αποδοχή των περιορισμών μας.",
+            "Η σοφία βρίσκεται στην ικανότητα να βλέπουμε την πραγματικότητα χωρίς προκαταλήψεις.",
+            "Η ζωή είναι ένας δρόμος γεμάτος από διασταυρώσεις, και εμείς επιλέγουμε τον προορισμό μας.",
+            "Η έννοια της ευτυχίας εξαρτάται από την εσωτερική μας στάση απέναντι στη ζωή.",
+            "Η φιλοσοφία δεν είναι απλώς μια θεωρητική γνώση, αλλά μια πρακτική καθοδήγηση για τη ζωή.",
+            "Η εσωτερική δύναμη προέρχεται από την κατανόηση του εαυτού μας και των κινήτρων μας.",
+            "Η σοφία είναι η τέχνη να γνωρίζεις πότε να μιλήσεις και πότε να σιωπήσεις.",
+            "Η πραγματικότητα είναι όπως την αντιλαμβανόμαστε, και η αντίληψή μας καθορίζει την εμπειρία μας.",
+            "Η αλήθεια είναι ένα ζωντανό οργανισμός που εξελίσσεται με την κατανόηση.",
+            "Η ευτυχία προέρχεται από την αποδοχή των εσωτερικών και εξωτερικών πραγματικοτήτων.",
+            "Η σκέψη είναι το κλειδί που ανοίγει τις πόρτες της σοφίας και της κατανόησης.",
+            "Η ζωή δεν είναι ούτε καλή ούτε κακή, αλλά είναι αυτό που κάνουμε με αυτήν.",
+            "Η φιλοσοφία είναι η αναζήτηση της αλήθειας μέσα από την αναστοχαστική σκέψη.",
+            "Η αληθινή σοφία έρχεται όταν κατανοούμε ότι η γνώση μας είναι πάντα περιορισμένη.",
+            "Η εσωτερική ειρήνη είναι το αποτέλεσμα της αυτογνωσίας και της αποδοχής.",
+            "Η ζωή είναι ένα συνεχές ταξίδι της αυτοανακάλυψης και της ανάπτυξης.",
+            "Η αλήθεια είναι η γέφυρα μεταξύ του φανταστικού και του πραγματικού.",
+            "Η σοφία δεν έρχεται από την εμπειρία, αλλά από την ικανότητα να μαθαίνουμε από την εμπειρία.",
+            "Η αυτογνωσία είναι η βάση της πραγματικής αλλαγής και της ανάπτυξης.",
+            "Η πραγματικότητα είναι μια σύνθεση των σκέψεων και των πεποιθήσεών μας.",
+            "Η φιλοσοφία είναι η αναζήτηση του νόηματος της ύπαρξης μέσα από τη σκέψη.",
+            "Η αληθινή ελευθερία είναι η αποδοχή των περιορισμών μας και η υπέρβασή τους.",
+            "Η σοφία είναι η ικανότητα να ζούμε με γνώμονα την αλήθεια που έχουμε ανακαλύψει.",
+            "Η ζωή είναι ένα συνεχές παιχνίδι μεταξύ του πραγματικού και του φανταστικού.",
+            "Η φιλοσοφία μας διδάσκει να ζούμε με πλήρη συνειδητότητα και ειλικρίνεια.",
+            "Η αλήθεια είναι το κλειδί που ανοίγει τις πόρτες της σοφίας.",
+            "Η ζωή είναι γεμάτη από μαθήματα που μας διδάσκουν την αξία της εμπειρίας.",
+            "Η σοφία είναι η ικανότητα να βλέπουμε πέρα από τις επιφανειακές καταστάσεις.",
+            "Η αυτογνωσία είναι το πρώτο βήμα προς την εσωτερική γαλήνη.",
+            "Η πραγματικότητα είναι μια αντανάκλαση της εσωτερικής μας κατάστασης.",
+            "Η φιλοσοφία είναι η τέχνη του να ζεις σύμφωνα με την αλήθεια που ανακαλύπτεις.",
+            "Η ζωή είναι ένα συνεχές ταξίδι της αυτοανακάλυψης και της ανάπτυξης.",
+            "Η αλήθεια είναι η γέφυρα μεταξύ του φανταστικού και του πραγματικού.",
+            "Η σοφία δεν έρχεται από την εμπειρία, αλλά από την ικανότητα να μαθαίνουμε από την εμπειρία.",
+            "Η αυτογνωσία είναι η βάση της πραγματικής αλλαγής και της ανάπτυξης.",
+            "Η πραγματικότητα είναι μια σύνθεση των σκέψεων και των πεποιθήσεών μας.",
+            "Η φιλοσοφία είναι η αναζήτηση του νόηματος της ύπαρξης μέσα από τη σκέψη."
         ];
 
-        const extraQuotes = [
-            "Η ζωή είναι τέχνη, ζήσε την όμορφα.",
-            "Η αγάπη δεν έχει όρια, όπως και η δύναμή σου.",
-            "Το μέλλον ανήκει σε αυτούς που πιστεύουν στα όνειρά τους.",
-            "Μη φοβάσαι να αποτύχεις, φοβάσαι να μην προσπαθήσεις.",
-            "Η υπομονή είναι πικρή, αλλά ο καρπός της είναι γλυκός.",
-            "Το ταξίδι χιλιάδων μιλίων ξεκινάει με ένα βήμα.",
-            "Κάνε κάθε μέρα να μετράει.",
-            "Τα μεγάλα πράγματα χρειάζονται χρόνο.",
-            "Η πίστη κινεί βουνά.",
-            "Όλα είναι δυνατά για αυτόν που πιστεύει."
-        ];
+        $(document).ready(function () {
+            let quoteIndex = 0;
 
-        let previousIndex = -1;
+            function showQuote() {
+                const quote = quotes[quoteIndex];
+                $('#quoteText').text(quote).css('opacity', 1).css('transform', 'scale(1)');
+                quoteIndex = (quoteIndex + 1) % quotes.length;
+            }
+
+            $('#showQuoteButton').click(function () {
+                $('#quoteText').css('opacity', 0).css('transform', 'scale(0.9)');
+                setTimeout(showQuote, 400);
+            });
+
+            $('#homeButton').click(function () {
+                $('.content').removeClass('active');
+                $('.home-content').addClass('active');
+            });
+
+            $('#dailyQuotesButton').click(function () {
+                $('.content').removeClass('active');
+                $('.daily-quotes-content').addClass('active');
+            });
+
+            $('#homeButton').click();
+        });
     </script>
 </head>
 
 <body>
-
     <div class="navbar">
-        <a href="#" data-target="quoteGenerator">Quote Generator</a>
-        <a href="#" data-target="dailyQuotes">Daily Quotes</a>
+        <a href="#" id="homeButton">Home</a>
+        <a href="#" id="dailyQuotesButton">Daily Quotes</a>
     </div>
-
-    <div id="quoteGenerator" class="content active">
+    <div class="content home-content active">
         <div class="container">
-            <h1>Παν ουλα λάθος?</h1>
-            <button id="quoteButton">Σηκου Πανω Ρεεεεεε</button>
+            <h1>Welcome to Quota</h1>
+            <p>Click the button below to get a new philosophical quote.</p>
+            <button id="showQuoteButton">Show Quote</button>
             <p id="quoteText"></p>
         </div>
-        <audio>
-            <source src="/quota.github.io/STAND_UP.mp3" type="audio/mpeg">
-        </audio>
     </div>
-
-    <div id="dailyQuotes" class="content">
+    <div class="content daily-quotes-content">
         <div class="daily-quotes-container">
             <h1>Daily Quotes</h1>
             <div class="quote-post">
-                <p><strong>Date:</strong> August 12, 2024</p>
-                <p>Η αγάπη δεν έχει όρια, όπως και η δύναμή σου.</p>
+                <p>“Ο σκοπός της ζωής είναι να ζήσεις την ζωή σου με την μέγιστη ελευθερία και να ανακαλύψεις την πραγματική σου φύση.”</p>
             </div>
-            <div class="quote-post">
-                <p><strong>Date:</strong> August 11, 2024</p>
-                <p>Το μέλλον ανήκει σε αυτούς που πιστεύουν στα όνειρά τους.</p>
-            </div>
+            <!-- Add more quote-post divs as needed -->
         </div>
     </div>
 </body>
