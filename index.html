@@ -214,43 +214,10 @@
                 font-size: 1rem;
             }
         }
-
-        /* Loading spinner styles */
-        .loading {
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            font-size: 1.5rem;
-            color: #ffcc66;
-            display: none;
-        }
-
-        .loading::before {
-            content: '';
-            border: 4px solid #f3f3f3;
-            border-top: 4px solid #ffcc66;
-            border-radius: 50%;
-            width: 30px;
-            height: 30px;
-            animation: spin 1s linear infinite;
-        }
-
-        @keyframes spin {
-            0% {
-                transform: rotate(0deg);
-            }
-
-            100% {
-                transform: rotate(360deg);
-            }
-        }
     </style>
 </head>
 
 <body>
-    <div id="loading" class="loading">Loading...</div>
-
     <div class="navbar">
         <a href="#" data-target="quoteGenerator">Quote Generator</a>
         <a href="#" data-target="dailyQuotes">Daily Quotes</a>
@@ -312,17 +279,12 @@
         let previousIndex = -1;
 
         $(document).ready(function () {
-            $('#loading').fadeOut();
-
             $('.navbar a').click(function () {
-                $('#loading').fadeIn();
                 $('.content').removeClass('active');
                 $('#' + $(this).data('target')).addClass('active');
-                $('#loading').fadeOut();
             });
 
             $('#quoteButton').click(function () {
-                $('#loading').fadeIn();
                 document.getElementsByTagName("audio")[0].play();
 
                 let combinedQuotes = quotes.concat(extraQuotes);
@@ -334,7 +296,6 @@
 
                 $('#quoteText').fadeOut(300, function () {
                     $(this).text(combinedQuotes[randomIndex]).fadeIn(300);
-                    $('#loading').fadeOut();
                 });
             });
         });
