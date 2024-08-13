@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Quota: Inspirational quotes and daily tips.">
+    <meta name="keywords" content="quotes, daily tips, inspiration, philosophy">
+    <meta name="author" content="Your Name">
     <title>Quota</title>
     <style>
         body {
@@ -42,12 +45,9 @@
             border-radius: 5px;
         }
 
-        .navbar a:nth-child(1) {
+        .navbar a.active {
             background-color: #ff9966;
-        }
-
-        .navbar a:nth-child(2) {
-            background-color: #ffcc66;
+            color: #fff;
         }
 
         .navbar a:hover {
@@ -64,6 +64,8 @@
             margin-top: 60px;
             margin-left: auto;
             margin-right: auto;
+            background: rgba(0, 0, 0, 0.6); /* Added overlay */
+            border-radius: 10px;
         }
 
         .content.active {
@@ -84,7 +86,7 @@
             margin-right: auto;
         }
 
-        h1 {
+        h1, h2 {
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
             color: #333;
@@ -155,7 +157,7 @@
                 padding: 20px;
             }
 
-            h1 {
+            h1, h2 {
                 font-size: 2.5rem;
             }
 
@@ -275,12 +277,16 @@
             $('#homeButton').click(function () {
                 $('.content').removeClass('active');
                 $('.home-content').addClass('active');
+                $('.navbar a').removeClass('active');
+                $('#homeButton').addClass('active');
             });
 
             $('#dailyQuotesButton').click(function () {
                 $('.content').removeClass('active');
                 $('.daily-quotes-content').addClass('active');
                 displayDailyContent();
+                $('.navbar a').removeClass('active');
+                $('#dailyQuotesButton').addClass('active');
             });
 
             $('#homeButton').click(); // Initialize with the home content
