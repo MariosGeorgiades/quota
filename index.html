@@ -57,9 +57,7 @@
         }
 
         .content {
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            display: none;
             padding: 15px;
             text-align: center;
             width: 100%;
@@ -72,7 +70,7 @@
         }
 
         .content.active {
-            display: flex;
+            display: block;
         }
 
         .container,
@@ -266,25 +264,22 @@
                 `);
             }
 
+            function showContent(contentId) {
+                $('.content').removeClass('active');
+                $(contentId).addClass('active');
+                $('.navbar a').removeClass('active');
+                $(`[data-target="${contentId}"]`).addClass('active');
+            }
+
             $('#showQuoteButton').click(function () {
                 $('#quoteText').css('opacity', 0).css('transform', 'scale(0.9)');
                 setTimeout(showQuote, 400);
                 $('#audioPlayer')[0].play();
             });
 
-            $('#homeButton').click(function () {
-                $('.content').removeClass('active');
-                $('.home-content').addClass('active');
-                $('.navbar a').removeClass('active');
-                $('#homeButton').addClass('active');
-            });
-
-            $('#dailyQuotesButton').click(function () {
-                $('.content').removeClass('active');
-                $('.daily-quotes-content').addClass('active');
-                displayDailyContent();
-                $('.navbar a').removeClass('active');
-                $('#dailyQuotesButton').addClass('active');
+            $('.navbar a').click(function () {
+                const targetId = $(this).data('target');
+                showContent(targetId);
             });
 
             $('#homeButton').click(); // Initialize with the home content
@@ -294,8 +289,8 @@
 
 <body>
     <div class="navbar">
-        <a href="#" id="homeButton">Quota</a>
-        <a href="#" id="dailyQuotesButton">ΚΑΘΗΜΕΡΙΝΗ ΦΙΛΟΣΟΦΙΑ</a>
+        <a href="#" id="homeButton" data-target=".home-content">Quota</a>
+        <a href="#" id="dailyQuotesButton" data-target=".daily-quotes-content">ΚΑΘΗΜΕΡΙΝΗ ΦΙΛΟΣΟΦΙΑ</a>
     </div>
     <div class="content home-content active">
         <div class="container">
