@@ -56,6 +56,8 @@
             width: 100%;
             max-width: 600px; /* Smaller box */
             margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .content.active {
@@ -65,13 +67,15 @@
         .container,
         .daily-quotes-container {
             width: 100%;
+            max-width: 600px; /* Smaller box */
             padding: 20px;
             background: rgba(255, 204, 128, 0.9); /* Light Coral */
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             animation: fadeIn 2s ease-in-out;
             text-align: center;
-            margin-top: 20px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         h1 {
@@ -144,6 +148,34 @@
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        const quotes = [
+            "Η δύναμη στην ζωή δεν έρχεται από τι μπορείς να κάνεις τώρα αλλά έρχεται από να κάνεις τα πράγραμα που πίστευες ότι δεν θα μπορούσες",
+            "Αυτός που δεν είναι ευχαριστημένος με αυτό που έχει δεν θα είναι ευχαριστημένος με αυτό που θα ήθελε να έχει — Σωκράτης",
+            "Η ζωή είναι μια βόλτα απόλαυσε την γιατί δεν υπάρχει εισιτήριο επιστροφής",
+            "Πρέπει καθημερινά Να μην είσαι σκλάβος του εαυτού σου πρέπει να ξεπερνάς τα όρια σου",
+            "Όλα ξεκινούν και τελειώνουν στο μυαλό σου. Σε ότι δίνεις δύναμη αυτό σε εξουσιάζει.",
+            "Τα όρια του καθενός είναι αυτά που ο ίδιος βάζει στον εαυτό του",
+            "Δεν χρειάζεται να λες τι ξέρεις. Είναι όμως απαραίτητο να ξέρεις τι λες",
+            "Το μεγαλύτερο λάθος που μπορείς να κάνεις στην ζωή σου είναι να ζεις με τον φόβο μήπως κάνεις λάθος",
+            "Κλείσε το παράθυρο που σε ενοχλεί όσο όμορφη και αν είναι η θέα που βλέπεις.",
+            "Ο κόσμος δεν έγινε χειρότερος απλά άνοιξαν τα μάτια σου",
+        ];
+
+        const extraQuotes = [
+            "Η ζωή είναι τέχνη, ζήσε την όμορφα.",
+            "Η αγάπη δεν έχει όρια, όπως και η δύναμή σου.",
+            "Το μέλλον ανήκει σε αυτούς που πιστεύουν στα όνειρά τους.",
+            "Μη φοβάσαι να αποτύχεις, φοβάσαι να μην προσπαθήσεις.",
+            "Η υπομονή είναι πικρή, αλλά ο καρπός της είναι γλυκός.",
+            "Το ταξίδι χιλιάδων μιλίων ξεκινάει με ένα βήμα.",
+            "Κάνε κάθε μέρα να μετράει.",
+            "Τα μεγάλα πράγματα χρειάζονται χρόνο.",
+            "Η πίστη κινεί βουνά.",
+            "Όλα είναι δυνατά για αυτόν που πιστεύει."
+        ];
+
+        let previousIndex = -1;
+
         $(document).ready(function () {
             $('.navbar a').click(function () {
                 $('.content').removeClass('active');
@@ -153,14 +185,12 @@
             $('#quoteButton').click(function () {
                 document.getElementsByTagName("audio")[0].play();
 
-                let combinedQuotes = [
-                    "Η δύναμη στην ζωή δεν έρχεται από τι μπορείς να κάνεις τώρα αλλά έρχεται από να κάνεις τα πραγραμα που πίστευες ότι δεν θα μπορούσες",
-                    "Αυτός που δεν είναι ευχαριστημένος με αυτό που έχει δεν θα είναι ευχαριστημένος με αυτό που θα ήθελε να έχει — Σωκράτης",
-                    "Η ζωή είναι μια βόλτα απόλαυσε την γιατί δεν υπάρχει εισιτήριο επιστροφής",
-                    // Add more quotes here
-                ];
-
-                let randomIndex = Math.floor(Math.random() * combinedQuotes.length);
+                let combinedQuotes = quotes.concat(extraQuotes);
+                let randomIndex;
+                do {
+                    randomIndex = Math.floor(Math.random() * combinedQuotes.length);
+                } while (randomIndex === previousIndex);
+                previousIndex = randomIndex;
 
                 $('#quoteText').fadeOut(function () {
                     $(this).text(combinedQuotes[randomIndex]).fadeIn().css('opacity', 1).css('transform', 'translateY(0)');
@@ -207,3 +237,4 @@
 </body>
 
 </html>
+
