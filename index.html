@@ -20,11 +20,11 @@
         .navbar {
             display: flex;
             justify-content: center;
-            background: linear-gradient(135deg, #333, #000); /* Gradient for the black bar */
+            background: linear-gradient(135deg, #333, #000);
             padding: 10px;
             width: 100%;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            border-bottom: 2px solid #ffcc66; /* Add a border at the bottom matching the theme */
+            border-bottom: 2px solid #ffcc66;
             position: fixed;
             top: 0;
             left: 0;
@@ -42,12 +42,8 @@
             border-radius: 5px;
         }
 
-        .navbar a:nth-child(1) {
-            background-color: #ff9966; /* Light Coral */
-        }
-
-        .navbar a:nth-child(2) {
-            background-color: #ffcc66; /* Pale Yellow */
+        .navbar a.active {
+            background-color: #ff9966;
         }
 
         .navbar a:hover {
@@ -60,8 +56,8 @@
             padding: 15px;
             text-align: center;
             width: 100%;
-            max-width: 300px; /* Smaller box for mobile */
-            margin-top: 60px; /* Offset for fixed navbar */
+            max-width: 300px;
+            margin-top: 60px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -73,9 +69,9 @@
         .container,
         .daily-quotes-container {
             width: 100%;
-            max-width: 300px; /* Smaller box for mobile */
-            padding: 10px; /* Reduced padding */
-            background: rgba(255, 204, 128, 0.9); /* Light Coral */
+            max-width: 300px;
+            padding: 10px;
+            background: rgba(255, 204, 128, 0.9);
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             animation: fadeIn 2s ease-in-out;
@@ -85,38 +81,38 @@
         }
 
         h1 {
-            font-size: 1.5rem; /* Smaller font size for mobile */
-            margin-bottom: 0.5rem; /* Adjusted spacing */
-            color: #333; /* Darker text for contrast */
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #333;
         }
 
         button {
-            background: #ffcc66; /* Match button color to the theme */
-            color: #333; /* Darker text for contrast */
-            padding: 0.5rem 1rem; /* Adjusted padding */
+            background: #ffcc66;
+            color: #333;
+            padding: 0.5rem 1rem;
             border: none;
             border-radius: 5px;
             cursor: pointer;
             transition: background 0.6s ease, transform 0.6s ease;
-            font-size: 1rem; /* Smaller font size for mobile */
+            font-size: 1rem;
         }
 
         button:hover {
-            background: #ff9966; /* Darker version of the theme color */
+            background: #ff9966;
             transform: scale(1.1);
         }
 
         #quoteText {
-            margin-top: 1rem; /* Adjusted margin */
-            font-size: 1.25rem; /* Smaller font size for mobile */
+            margin-top: 1rem;
+            font-size: 1.25rem;
             opacity: 0;
             transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
             line-height: 1.4;
-            color: #333; /* Darker text for contrast */
+            color: #333;
         }
 
         .quote-post {
-            margin-bottom: 10px; /* Reduced margin */
+            margin-bottom: 10px;
             padding: 10px;
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 5px;
@@ -135,39 +131,63 @@
 
         @media (min-width: 768px) {
             .navbar a {
-                padding: 14px 20px; /* Adjust padding for larger screens */
-                font-size: 18px; /* Revert to larger font size */
-                margin: 0 10px; /* Revert to larger margin */
+                padding: 14px 20px;
+                font-size: 18px;
+                margin: 0 10px;
             }
 
             .content {
                 padding: 20px;
-                max-width: 500px; /* Larger box for tablets/desktops */
-                margin-top: 80px; /* Adjusted margin for larger screens */
+                max-width: 500px;
+                margin-top: 80px;
             }
 
             .container,
             .daily-quotes-container {
-                max-width: 500px; /* Larger box for tablets/desktops */
+                max-width: 500px;
                 padding: 20px;
             }
 
             h1 {
-                font-size: 2.5rem; /* Larger font size for tablets/desktops */
+                font-size: 2.5rem;
             }
 
             button {
-                font-size: 1.5rem; /* Larger font size for tablets/desktops */
+                font-size: 1.5rem;
                 padding: 0.75rem 1.5rem;
             }
 
             #quoteText {
-                font-size: 1.75rem; /* Larger font size for tablets/desktops */
+                font-size: 1.75rem;
             }
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
+        $(document).ready(function () {
+            $('.navbar a').click(function () {
+                $('.navbar a').removeClass('active');
+                $(this).addClass('active');
+                $('.content').removeClass('active');
+                $('#' + $(this).data('target')).addClass('active');
+            });
+
+            $('#quoteButton').click(function () {
+                document.getElementsByTagName("audio")[0].play();
+
+                let combinedQuotes = quotes.concat(extraQuotes);
+                let randomIndex;
+                do {
+                    randomIndex = Math.floor(Math.random() * combinedQuotes.length);
+                } while (randomIndex === previousIndex);
+                previousIndex = randomIndex;
+
+                $('#quoteText').fadeOut(function () {
+                    $(this).text(combinedQuotes[randomIndex]).fadeIn().css('opacity', 1).css('transform', 'translateY(0)');
+                });
+            });
+        });
+
         const quotes = [
             "Η δύναμη στην ζωή δεν έρχεται από τι μπορείς να κάνεις τώρα αλλά έρχεται από να κάνεις τα πράγραμα που πίστευες ότι δεν θα μπορούσες",
             "Αυτός που δεν είναι ευχαριστημένος με αυτό που έχει δεν θα είναι ευχαριστημένος με αυτό που θα ήθελε να έχει — Σωκράτης",
@@ -195,33 +215,11 @@
         ];
 
         let previousIndex = -1;
-
-        $(document).ready(function () {
-            $('.navbar a').click(function () {
-                $('.content').removeClass('active');
-                $('#' + $(this).data('target')).addClass('active');
-            });
-
-            $('#quoteButton').click(function () {
-                document.getElementsByTagName("audio")[0].play();
-
-                let combinedQuotes = quotes.concat(extraQuotes);
-                let randomIndex;
-                do {
-                    randomIndex = Math.floor(Math.random() * combinedQuotes.length);
-                } while (randomIndex === previousIndex);
-                previousIndex = randomIndex;
-
-                $('#quoteText').fadeOut(function () {
-                    $(this).text(combinedQuotes[randomIndex]).fadeIn().css('opacity', 1).css('transform', 'translateY(0)');
-                });
-            });
-        });
     </script>
 </head>
 
 <body>
-  
+
     <div class="navbar">
         <a href="#" data-target="quoteGenerator">Quote Generator</a>
         <a href="#" data-target="dailyQuotes">Daily Quotes</a>
@@ -238,7 +236,6 @@
         </audio>
     </div>
 
-
     <div id="dailyQuotes" class="content">
         <div class="daily-quotes-container">
             <h1>Daily Quotes</h1>
@@ -250,7 +247,6 @@
                 <p><strong>Date:</strong> August 11, 2024</p>
                 <p>Το μέλλον ανήκει σε αυτούς που πιστεύουν στα όνειρά τους.</p>
             </div>
- 
         </div>
     </div>
 </body>
