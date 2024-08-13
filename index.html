@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -7,7 +6,72 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quota</title>
     <style>
-        /* Existing styles here... */
+        body {
+            background: url('/quota.github.io/image.png') no-repeat center center fixed;
+            background-size: cover;
+            color: #fff;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .navbar {
+            background: rgba(0, 0, 0, 0.7);
+            padding: 10px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+
+        .navbar a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            font-size: 1.2rem;
+        }
+
+        .navbar a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            border-radius: 5px;
+        }
+
+        .content {
+            display: none;
+            padding: 20px;
+        }
+
+        .content.active {
+            display: block;
+        }
+
+        .home-content {
+            text-align: center;
+            padding-top: 60px;
+        }
+
+        #quoteText {
+            font-size: 1.5rem;
+            margin-top: 20px;
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .daily-quotes-container {
+            padding: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            border-radius: 10px;
+            margin-top: 20px;
+        }
+
+        .quote-post {
+            background: rgba(255, 255, 255, 0.2);
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
 
         .daily-challenge-container {
             background: rgba(255, 255, 255, 0.1);
@@ -69,6 +133,19 @@
             background: #ffcc66;
             transform: scale(1.1);
         }
+
+        button {
+            background: #ff9966;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background: #ffcc66;
+        }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -110,29 +187,21 @@
             "Κάθε μέρα είναι μια νέα ευκαιρία να αλλάξεις τη ζωή σου.",
             "Το μόνο που μπορείς να ελέγξεις είναι ο τρόπος που αντιδράς στις καταστάσεις. Κάνε την αντίδρασή σου θετική.",
             "Μην περιμένεις την τέλεια στιγμή. Πάρε την στιγμή και κάνε την τέλεια.",
-            "Η ζωή δεν είναι το να περιμένεις να περάσει η καταιγίδα, αλλά το να μάθεις να χορεύεις στη βροχή.",
-            "Η μεγαλύτερη περιπέτεια που μπορείς να ζήσεις είναι να ζήσεις τη ζωή των ονείρων σου.",
-            "Η επιτυχία συνήθως έρχεται σε αυτούς που είναι απασχολημένοι με το να την αναζητούν.",
-            "Η αλλαγή είναι η μοναδική σταθερά στη ζωή. Αγκάλιασέ την και προχώρα μπροστά.",
-            "Η αληθινή δύναμη βρίσκεται στη συνεχή προσπάθεια, όχι στην τελειότητα.",
-            "Κάθε αποτυχία είναι ένα βήμα προς την επιτυχία. Μην εγκαταλείπεις ποτέ."
+            "Η ζωή δεν είναι το άθροισμα των ημερών σου, αλλά το πόσο καλά ζεις κάθε μέρα."
         ];
 
-        // Tips for daily quotes
         const dailyTips = [
-            "Ξεκίνα την ημέρα σου με ευγνωμοσύνη. Σκέψου τρία πράγματα για τα οποία είσαι ευγνώμον.",
-            "Θέσε μικρούς στόχους και γιορτάστε κάθε μικρή επιτυχία.",
-            "Κάνε καθημερινή άσκηση, ακόμα και αν είναι μόνο για λίγα λεπτά.",
-            "Πάρε χρόνο για να κάνεις κάτι που αγαπάς κάθε μέρα.",
-            "Μάθε να λες ‘όχι’ όταν χρειάζεται, για να προστατεύεις τον εαυτό σου.",
-            "Δώσε προτεραιότητα στην ποιότητα των σχέσεών σου.",
-            "Διατήρησε θετική στάση, ακόμα και όταν αντιμετωπίζεις προκλήσεις.",
-            "Δώσε χρόνο στον εαυτό σου να ξεκουραστεί και να ανανεωθεί.",
-            "Δημιούργησε μια ρουτίνα που σε βοηθά να παραμένεις οργανωμένος και συγκεντρωμένος.",
-            "Μάθε κάτι νέο κάθε μέρα για να διευρύνεις τις γνώσεις σου."
+            "Start your day with a positive affirmation.",
+            "Make a to-do list to organize your tasks.",
+            "Take a break every hour to stay productive.",
+            "Drink plenty of water to stay hydrated.",
+            "Practice mindfulness or meditation for a few minutes.",
+            "Exercise or stretch to keep your body active.",
+            "Set small, achievable goals for the day.",
+            "Connect with a friend or family member.",
+            "Read or listen to something inspirational.",
+            "Reflect on your progress and achievements."
         ];
-
-
 
         $(document).ready(function () {
             let quoteIndex = 0;
@@ -240,7 +309,6 @@
             <h1>Παν ουλα λάθος</h1>
             <button id="showQuoteButton">Σήκου Πάνω ΡΕΕΕΕΕ</button>
             <p id="quoteText"></p>
-           
             <audio id="audioPlayer" src="/quota.github.io/STAND_UP.mp3" preload="auto"></audio>
         </div>
     </div>
