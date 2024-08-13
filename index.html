@@ -7,166 +7,95 @@
     <title>Quota</title>
     <style>
         body {
+            font-family: Arial, sans-serif;
             margin: 0;
-            font-family: 'Georgia', serif; 
-            background: url('/quota.github.io/image.png') no-repeat center center fixed;
-            background-size: cover;
-            color: #fff;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            padding: 0;
+            background-color: #f4f4f4;
+            color: #333;
+            line-height: 1.6;
         }
 
         .navbar {
-            display: flex;
-            justify-content: center;
-            background: linear-gradient(135deg, #333, #000);
+            background-color: #333;
+            color: #fff;
             padding: 10px;
-            width: 100%;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            border-bottom: 2px solid #ffcc66;
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: 1000;
+            text-align: center;
         }
 
         .navbar a {
-            color: #ffffff;
-            padding: 12px 16px;
+            color: #fff;
+            margin: 0 15px;
             text-decoration: none;
-            text-align: center;
-            font-size: 16px;
-            transition: background 0.3s, transform 0.3s;
-            margin: 0 5px;
-            border-radius: 5px;
-        }
-
-        .navbar a:nth-child(1) {
-            background-color: #ff9966;
-        }
-
-        .navbar a:nth-child(2) {
-            background-color: #ffcc66;
-        }
-
-        .navbar a:hover {
-            transform: scale(1.1);
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+            font-weight: bold;
         }
 
         .content {
             display: none;
-            padding: 15px;
-            text-align: center;
-            width: 100%;
-            max-width: 300px;
-            margin-top: 60px;
-            margin-left: auto;
-            margin-right: auto;
+            padding: 20px;
         }
 
-        .content.active {
+        .active {
             display: block;
         }
 
-        .container,
-        .daily-quotes-container {
-            width: 100%;
-            max-width: 300px;
-            padding: 10px;
-            background: rgba(255, 204, 128, 0.9);
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            animation: fadeIn 2s ease-in-out;
+        .container {
+            max-width: 800px;
+            margin: auto;
+            padding: 20px;
             text-align: center;
-            margin-left: auto;
-            margin-right: auto;
+            background-color: #fff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
 
         h1 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
+            margin-bottom: 20px;
             color: #333;
-            font-family: 'Arial', sans-serif; 
         }
 
         button {
-            background: #ffcc66;
-            color: #333;
-            padding: 0.5rem 1rem;
+            background-color: #333;
+            color: #fff;
             border: none;
-            border-radius: 5px;
+            padding: 15px 30px;
+            font-size: 18px;
             cursor: pointer;
-            transition: background 0.6s ease, transform 0.6s ease;
-            font-size: 1rem;
-            font-family: 'Courier New', monospace; 
+            border-radius: 5px;
         }
 
         button:hover {
-            background: #ff9966;
-            transform: scale(1.1);
+            background-color: #555;
         }
 
         #quoteText {
-            margin-top: 1rem;
-            font-size: 1.25rem;
+            margin-top: 20px;
+            font-size: 24px;
+            transition: opacity 0.4s, transform 0.4s;
             opacity: 0;
-            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
-            line-height: 1.4;
-            color: #333;
-            font-family: 'Times New Roman', serif; 
+            transform: scale(0.9);
+        }
+
+        .daily-quotes-container {
+            max-width: 600px;
+            margin: auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
         }
 
         .quote-post {
-            margin-bottom: 10px;
-            padding: 10px;
-            background-color: rgba(255, 255, 255, 0.1);
-            border-radius: 5px;
-            text-align: left;
+            margin-bottom: 20px;
         }
 
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-            }
-
-            to {
-                opacity: 1;
-            }
+        .quote-post p {
+            margin: 0;
+            font-size: 18px;
+            color: #555;
         }
 
-        @media (min-width: 768px) {
-            .navbar a {
-                padding: 14px 20px;
-                font-size: 18px;
-                margin: 0 10px;
-            }
-
-            .content {
-                padding: 20px;
-                max-width: 500px;
-                margin-top: 80px;
-            }
-
-            .container,
-            .daily-quotes-container {
-                max-width: 500px;
-                padding: 20px;
-            }
-
-            h1 {
-                font-size: 2.5rem;
-            }
-
-            button {
-                font-size: 1.5rem;
-                padding: 0.75rem 1.5rem;
-            }
-
-            #quoteText {
-                font-size: 1.75rem;
-            }
+        .quote-post p strong {
+            color: #333;
         }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -217,19 +146,43 @@
             "Κάθε αποτυχία είναι ένα βήμα προς την επιτυχία. Μην εγκαταλείπεις ποτέ."
         ];
 
-        $(document).ready(function () {
-            let quoteIndex = 0;
-
-            function showQuote() {
-                const quote = quotes[quoteIndex];
-                $('#quoteText').text(quote).css('opacity', 1).css('transform', 'scale(1)');
-                quoteIndex = (quoteIndex + 1) % quotes.length;
+        const dailyQuotes = [
+            {
+                quote: "“Ο σκοπός της ζωής είναι να ζήσεις την ζωή σου με την μέγιστη ελευθερία και να ανακαλύψεις την πραγματική σου φύση.”",
+                tip: "Ξεκινήστε την ημέρα σας με μια θετική σκέψη και απομακρύνετε αρνητικές σκέψεις που σας κρατούν πίσω."
+            },
+            {
+                quote: "“Η αληθινή ευτυχία προέρχεται από την αποδοχή του εαυτού σου και των άλλων γύρω σου.”",
+                tip: "Δώστε χρόνο στον εαυτό σας για να σκεφτεί και να χαλαρώσει, αποφεύγοντας τον συνεχή θόρυβο της καθημερινότητας."
+            },
+            {
+                quote: "“Η ευτυχία δεν είναι να έχεις όλα όσα θέλεις, αλλά να αγαπάς αυτό που έχεις.”",
+                tip: "Εστιάστε σε όσα έχετε και νιώστε ευγνωμοσύνη για αυτά."
+            },
+            {
+                quote: "“Η ελευθερία ξεκινάει από την απαλλαγή από τους φόβους και τις ανασφάλειές μας.”",
+                tip: "Κάντε ένα βήμα έξω από τη ζώνη άνεσής σας σήμερα."
+            },
+            {
+                quote: "“Ο δρόμος προς την αλήθεια είναι μακρύς, αλλά κάθε βήμα μας φέρνει πιο κοντά.”",
+                tip: "Αφιερώστε λίγο χρόνο κάθε μέρα για να αναζητήσετε την αλήθεια μέσα σας."
+            },
+            {
+                quote: "“Η κατανόηση του εαυτού μας είναι το πρώτο βήμα για να κατανοήσουμε τον κόσμο γύρω μας.”",
+                tip: "Ξεκινήστε την ημέρα σας με αυτο-παρατήρηση και αυτοκριτική."
+            },
+            {
+                quote: "“Η πραγματική σοφία είναι να γνωρίζεις τι να αγνοήσεις.”",
+                tip: "Εστιάστε σε ό,τι έχει σημασία και αγνοήστε τις μικρές αναποδιές της ζωής."
             }
+        ];
 
+        $(document).ready(function () {
             $('#showQuoteButton').click(function () {
-                $('#quoteText').css('opacity', 0).css('transform', 'scale(0.9)');
-                setTimeout(showQuote, 400);
-                $('#audioPlayer')[0].play(); 
+                var randomIndex = Math.floor(Math.random() * quotes.length);
+                var randomQuote = quotes[randomIndex];
+                $('#quoteText').text(randomQuote).css({ 'opacity': '1', 'transform': 'scale(1)' });
+                $('#audioPlayer')[0].play();
             });
 
             $('#homeButton').click(function () {
@@ -240,6 +193,11 @@
             $('#dailyQuotesButton').click(function () {
                 $('.content').removeClass('active');
                 $('.daily-quotes-content').addClass('active');
+
+                var todayIndex = new Date().getDate() % dailyQuotes.length;
+                var todayQuote = dailyQuotes[todayIndex];
+                $('#dailyQuoteText').text(todayQuote.quote);
+                $('#dailyTipText').text(todayQuote.tip);
             });
 
             $('#homeButton').click();
@@ -265,9 +223,9 @@
         <div class="daily-quotes-container">
             <h1>Daily Quotes</h1>
             <div class="quote-post">
-                <p>“Ο σκοπός της ζωής είναι να ζήσεις την ζωή σου με την μέγιστη ελευθερία και να ανακαλύψεις την πραγματική σου φύση.”</p>
+                <p id="dailyQuoteText"></p>
+                <p><strong>Tip:</strong> <span id="dailyTipText"></span></p>
             </div>
-      
         </div>
     </div>
 </body>
