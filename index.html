@@ -4,9 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Quota: Inspirational quotes and daily tips.">
-    <meta name="keywords" content="quotes, daily tips, inspiration, philosophy">
-    <meta name="author" content="Your Name">
     <title>Quota</title>
     <style>
         body {
@@ -18,7 +15,6 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh;
         }
 
         .navbar {
@@ -46,9 +42,12 @@
             border-radius: 5px;
         }
 
-        .navbar a.active {
+        .navbar a:nth-child(1) {
             background-color: #ff9966;
-            color: #fff;
+        }
+
+        .navbar a:nth-child(2) {
+            background-color: #ffcc66;
         }
 
         .navbar a:hover {
@@ -61,12 +60,10 @@
             padding: 15px;
             text-align: center;
             width: 100%;
-            max-width: 600px; /* Adjusted for better centering */
+            max-width: 300px;
             margin-top: 60px;
             margin-left: auto;
             margin-right: auto;
-            background: rgba(0, 0, 0, 0.6); /* Added overlay */
-            border-radius: 10px;
         }
 
         .content.active {
@@ -76,16 +73,18 @@
         .container,
         .daily-quotes-container {
             width: 100%;
-            max-width: 500px; /* Adjusted for better centering */
-            padding: 20px;
+            max-width: 300px;
+            padding: 10px;
             background: rgba(255, 204, 128, 0.9);
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             animation: fadeIn 2s ease-in-out;
             text-align: center;
+            margin-left: auto;
+            margin-right: auto;
         }
 
-        h1, h2 {
+        h1 {
             font-size: 1.5rem;
             margin-bottom: 0.5rem;
             color: #333;
@@ -146,17 +145,17 @@
 
             .content {
                 padding: 20px;
-                max-width: 800px;
+                max-width: 500px;
                 margin-top: 80px;
             }
 
             .container,
             .daily-quotes-container {
-                max-width: 800px;
+                max-width: 500px;
                 padding: 20px;
             }
 
-            h1, h2 {
+            h1 {
                 font-size: 2.5rem;
             }
 
@@ -200,8 +199,11 @@
                 "Η φιλοσοφία μας διδάσκει ότι η αλήθεια δεν είναι πάντα απλή, αλλά είναι πάντα πολύτιμη.",
                 "Η ζωή είναι γεμάτη από μικρές αλήθειες που σχηματίζουν μια μεγαλύτερη εικόνα.",
                 "Η αληθινή ελευθερία έρχεται από την εσωτερική αποδοχή των περιορισμών μας.",
-                "Η κατανόηση της πραγματικότητας απαιτεί ευθυκρισία και ταπεινότητα.",
-                "Η ευτυχία δεν βρίσκεται στην αναμονή ενός μεγάλου γεγονότος αλλά στην απόλαυση της καθημερινότητας.",
+                "Η σοφία βρίσκεται στην ικανότητα να βλέπουμε την πραγματικότητα χωρίς προκαταλήψεις.",
+                "Η ζωή είναι ένας δρόμος γεμάτος από διασταυρώσεις, και εμείς επιλέγουμε τον προορισμό μας.",
+                "Η έννοια της ευτυχίας εξαρτάται από την εσωτερική μας στάση απέναντι στη ζωή.",
+                "Η φιλοσοφία δεν είναι απλώς μια θεωρητική γνώση, αλλά μια πρακτική καθοδήγηση για τη ζωή.",
+                "Η εσωτερική δύναμη προέρχεται από την κατανόηση του εαυτού μας και των κινήτρων μας.",
                 "Η σοφία είναι η τέχνη να γνωρίζεις πότε να μιλήσεις και πότε να σιωπήσεις.",
                 "Η αλήθεια είναι το φως που καθοδηγεί την ψυχή μας στον δρόμο της ευτυχίας.",
                 "Η ζωή είναι ένα ταξίδι συνεχούς μάθησης και αυτογνωσίας.",
@@ -252,7 +254,7 @@
                 const dayOfMonth = today.getDate();
                 const dailyQuoteIndex = dayOfMonth % quotes.length;
                 const dailyQuote = quotes[dailyQuoteIndex];
-                $('.daily-quotes-container').html(`
+                $('.daily-quotes-container').html(
                     <h1>Daily Quote</h1>
                     <div class="quote-post">
                         <p>“${dailyQuote}”</p>
@@ -261,14 +263,7 @@
                     <div class="quote-post">
                         <p>${getDailyTip()}</p>
                     </div>
-                `);
-            }
-
-            function showContent(contentId) {
-                $('.content').removeClass('active');
-                $(contentId).addClass('active');
-                $('.navbar a').removeClass('active');
-                $(`[data-target="${contentId}"]`).addClass('active');
+                );
             }
 
             $('#showQuoteButton').click(function () {
@@ -277,9 +272,15 @@
                 $('#audioPlayer')[0].play();
             });
 
-            $('.navbar a').click(function () {
-                const targetId = $(this).data('target');
-                showContent(targetId);
+            $('#homeButton').click(function () {
+                $('.content').removeClass('active');
+                $('.home-content').addClass('active');
+            });
+
+            $('#dailyQuotesButton').click(function () {
+                $('.content').removeClass('active');
+                $('.daily-quotes-content').addClass('active');
+                displayDailyContent();
             });
 
             $('#homeButton').click(); // Initialize with the home content
@@ -289,8 +290,8 @@
 
 <body>
     <div class="navbar">
-        <a href="#" id="homeButton" data-target=".home-content">Quota</a>
-        <a href="#" id="dailyQuotesButton" data-target=".daily-quotes-content">ΚΑΘΗΜΕΡΙΝΗ ΦΙΛΟΣΟΦΙΑ</a>
+        <a href="#" id="homeButton">Quota</a>
+        <a href="#" id="dailyQuotesButton">ΚΑΘΗΜΕΡΙΝΗ ΦΙΛΟΣΟΦΙΑ</a>
     </div>
     <div class="content home-content active">
         <div class="container">
