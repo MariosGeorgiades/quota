@@ -18,6 +18,7 @@
             display: flex;
             flex-direction: column;
             align-items: center;
+            min-height: 100vh;
         }
 
         .navbar {
@@ -56,11 +57,13 @@
         }
 
         .content {
-            display: none;
+            display: flex;
+            justify-content: center;
+            align-items: center;
             padding: 15px;
             text-align: center;
             width: 100%;
-            max-width: 300px;
+            max-width: 600px; /* Adjusted for better centering */
             margin-top: 60px;
             margin-left: auto;
             margin-right: auto;
@@ -69,21 +72,19 @@
         }
 
         .content.active {
-            display: block;
+            display: flex;
         }
 
         .container,
         .daily-quotes-container {
             width: 100%;
-            max-width: 300px;
-            padding: 10px;
+            max-width: 500px; /* Adjusted for better centering */
+            padding: 20px;
             background: rgba(255, 204, 128, 0.9);
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             animation: fadeIn 2s ease-in-out;
             text-align: center;
-            margin-left: auto;
-            margin-right: auto;
         }
 
         h1, h2 {
@@ -147,13 +148,13 @@
 
             .content {
                 padding: 20px;
-                max-width: 500px;
+                max-width: 800px;
                 margin-top: 80px;
             }
 
             .container,
             .daily-quotes-container {
-                max-width: 500px;
+                max-width: 800px;
                 padding: 20px;
             }
 
@@ -201,11 +202,8 @@
                 "Η φιλοσοφία μας διδάσκει ότι η αλήθεια δεν είναι πάντα απλή, αλλά είναι πάντα πολύτιμη.",
                 "Η ζωή είναι γεμάτη από μικρές αλήθειες που σχηματίζουν μια μεγαλύτερη εικόνα.",
                 "Η αληθινή ελευθερία έρχεται από την εσωτερική αποδοχή των περιορισμών μας.",
-                "Η σοφία βρίσκεται στην ικανότητα να βλέπουμε την πραγματικότητα χωρίς προκαταλήψεις.",
-                "Η ζωή είναι ένας δρόμος γεμάτος από διασταυρώσεις, και εμείς επιλέγουμε τον προορισμό μας.",
-                "Η έννοια της ευτυχίας εξαρτάται από την εσωτερική μας στάση απέναντι στη ζωή.",
-                "Η φιλοσοφία δεν είναι απλώς μια θεωρητική γνώση, αλλά μια πρακτική καθοδήγηση για τη ζωή.",
-                "Η εσωτερική δύναμη προέρχεται από την κατανόηση του εαυτού μας και των κινήτρων μας.",
+                "Η κατανόηση της πραγματικότητας απαιτεί ευθυκρισία και ταπεινότητα.",
+                "Η ευτυχία δεν βρίσκεται στην αναμονή ενός μεγάλου γεγονότος αλλά στην απόλαυση της καθημερινότητας.",
                 "Η σοφία είναι η τέχνη να γνωρίζεις πότε να μιλήσεις και πότε να σιωπήσεις.",
                 "Η αλήθεια είναι το φως που καθοδηγεί την ψυχή μας στον δρόμο της ευτυχίας.",
                 "Η ζωή είναι ένα ταξίδι συνεχούς μάθησης και αυτογνωσίας.",
