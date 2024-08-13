@@ -217,20 +217,6 @@
             "Κάθε αποτυχία είναι ένα βήμα προς την επιτυχία. Μην εγκαταλείπεις ποτέ."
         ];
 
-        // Tips for daily quotes
-        const dailyTips = [
-            "Ξεκίνα την ημέρα σου με ευγνωμοσύνη. Σκέψου τρία πράγματα για τα οποία είσαι ευγνώμον.",
-            "Θέσε μικρούς στόχους και γιορτάστε κάθε μικρή επιτυχία.",
-            "Κάνε καθημερινή άσκηση, ακόμα και αν είναι μόνο για λίγα λεπτά.",
-            "Πάρε χρόνο για να κάνεις κάτι που αγαπάς κάθε μέρα.",
-            "Μάθε να λες ‘όχι’ όταν χρειάζεται, για να προστατεύεις τον εαυτό σου.",
-            "Δώσε προτεραιότητα στην ποιότητα των σχέσεών σου.",
-            "Διατήρησε θετική στάση, ακόμα και όταν αντιμετωπίζεις προκλήσεις.",
-            "Δώσε χρόνο στον εαυτό σου να ξεκουραστεί και να ανανεωθεί.",
-            "Δημιούργησε μια ρουτίνα που σε βοηθά να παραμένεις οργανωμένος και συγκεντρωμένος.",
-            "Μάθε κάτι νέο κάθε μέρα για να διευρύνεις τις γνώσεις σου."
-        ];
-
         $(document).ready(function () {
             let quoteIndex = 0;
 
@@ -238,29 +224,6 @@
                 const quote = quotes[quoteIndex];
                 $('#quoteText').text(quote).css('opacity', 1).css('transform', 'scale(1)');
                 quoteIndex = (quoteIndex + 1) % quotes.length;
-            }
-
-            function getDailyTip() {
-                const today = new Date();
-                const tipIndex = today.getDate() % dailyTips.length;
-                return dailyTips[tipIndex];
-            }
-
-            function displayDailyContent() {
-                const today = new Date();
-                const dayOfMonth = today.getDate();
-                const dailyQuoteIndex = dayOfMonth % quotes.length;
-                const dailyQuote = quotes[dailyQuoteIndex];
-                $('.daily-quotes-container').html(
-                    <h1>Daily Quote</h1>
-                    <div class="quote-post">
-                        <p>“${dailyQuote}”</p>
-                    </div>
-                    <h2>Tip of the Day</h2>
-                    <div class="quote-post">
-                        <p>${getDailyTip()}</p>
-                    </div>
-                );
             }
 
             $('#showQuoteButton').click(function () {
@@ -277,7 +240,6 @@
             $('#dailyQuotesButton').click(function () {
                 $('.content').removeClass('active');
                 $('.daily-quotes-content').addClass('active');
-                displayDailyContent();
             });
 
             $('#homeButton').click();
@@ -301,7 +263,11 @@
     </div>
     <div class="content daily-quotes-content">
         <div class="daily-quotes-container">
-           
+            <h1>Daily Quotes</h1>
+            <div class="quote-post">
+                <p>“Ο σκοπός της ζωής είναι να ζήσεις την ζωή σου με την μέγιστη ελευθερία και να ανακαλύψεις την πραγματική σου φύση.”</p>
+            </div>
+      
         </div>
     </div>
 </body>
