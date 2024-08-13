@@ -37,11 +37,11 @@
         }
 
         .navbar a:nth-child(1) {
-            background-color: #ff6666;
+            background-color: #ff9966; /* Light Coral */
         }
 
         .navbar a:nth-child(2) {
-            background-color: #66cc66;
+            background-color: #ffcc66; /* Pale Yellow */
         }
 
         .navbar a:hover {
@@ -54,7 +54,7 @@
             padding: 20px;
             text-align: center;
             width: 100%;
-            max-width: 800px;
+            max-width: 600px; /* Smaller box */
             margin-top: 20px;
         }
 
@@ -66,21 +66,22 @@
         .daily-quotes-container {
             width: 100%;
             padding: 20px;
-            background: rgba(6, 193, 218, 0.9);
+            background: rgba(255, 204, 128, 0.9); /* Light Coral */
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             animation: fadeIn 2s ease-in-out;
             text-align: center;
-            margin: 0 auto;
+            margin-top: 20px;
         }
 
         h1 {
             font-size: 2rem;
             margin-bottom: 1rem;
+            color: #333; /* Darker text for contrast */
         }
 
         button {
-            background: #007bff;
+            background: #66ccff; /* Light Blue */
             color: #ffffff;
             padding: 0.75rem 1.5rem;
             border: none;
@@ -91,7 +92,7 @@
         }
 
         button:hover {
-            background: #0056b3;
+            background: #3399ff; /* Darker Blue */
             transform: scale(1.1);
         }
 
@@ -101,6 +102,7 @@
             opacity: 0;
             transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
             line-height: 1.4;
+            color: #333; /* Darker text for contrast */
         }
 
         .quote-post {
@@ -122,11 +124,6 @@
         }
 
         @media (min-width: 768px) {
-            .container,
-            .daily-quotes-container {
-                max-width: 60%;
-            }
-
             h1 {
                 font-size: 2.5rem;
             }
@@ -138,9 +135,7 @@
             #quoteText {
                 font-size: 1.75rem;
             }
-        }
 
-        @media (min-width: 1024px) {
             .container,
             .daily-quotes-container {
                 max-width: 50%;
@@ -149,34 +144,6 @@
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        const quotes = [
-            "Η δύναμη στην ζωή δεν έρχεται από τι μπορείς να κάνεις τώρα αλλά έρχεται από να κάνεις τα πράγραμα που πίστευες ότι δεν θα μπορούσες",
-            "Αυτός που δεν είναι ευχαριστημένος με αυτό που έχει δεν θα είναι ευχαριστημένος με αυτό που θα ήθελε να έχει — Σωκράτης",
-            "Η ζωή είναι μια βόλτα απόλαυσε την γιατί δεν υπάρχει εισιτήριο επιστροφής",
-            "Πρέπει καθημερινά Να μην είσαι σκλάβος του εαυτού σου πρέπει να ξεπερνάς τα όρια σου",
-            "Όλα ξεκινούν και τελειώνουν στο μυαλό σου. Σε ότι δίνεις δύναμη αυτό σε εξουσιάζει.",
-            "Τα όρια του καθενός είναι αυτά που ο ίδιος βάζει στον εαυτό του",
-            "Δεν χρειάζεται να λες τι ξέρεις. Είναι όμως απαραίτητο να ξέρεις τι λες",
-            "Το μεγαλύτερο λάθος που μπορείς να κάνεις στην ζωή σου είναι να ζεις με τον φόβο μήπως κάνεις λάθος",
-            "Κλείσε το παράθυρο που σε ενοχλεί όσο όμορφη και αν είναι η θέα που βλέπεις.",
-            "Ο κόσμος δεν έγινε χειρότερος απλά άνοιξαν τα μάτια σου",
-        ];
-
-        const extraQuotes = [
-            "Η ζωή είναι τέχνη, ζήσε την όμορφα.",
-            "Η αγάπη δεν έχει όρια, όπως και η δύναμή σου.",
-            "Το μέλλον ανήκει σε αυτούς που πιστεύουν στα όνειρά τους.",
-            "Μη φοβάσαι να αποτύχεις, φοβάσαι να μην προσπαθήσεις.",
-            "Η υπομονή είναι πικρή, αλλά ο καρπός της είναι γλυκός.",
-            "Το ταξίδι χιλιάδων μιλίων ξεκινάει με ένα βήμα.",
-            "Κάνε κάθε μέρα να μετράει.",
-            "Τα μεγάλα πράγματα χρειάζονται χρόνο.",
-            "Η πίστη κινεί βουνά.",
-            "Όλα είναι δυνατά για αυτόν που πιστεύει."
-        ];
-
-        let previousIndex = -1;
-
         $(document).ready(function () {
             $('.navbar a').click(function () {
                 $('.content').removeClass('active');
@@ -186,12 +153,14 @@
             $('#quoteButton').click(function () {
                 document.getElementsByTagName("audio")[0].play();
 
-                let combinedQuotes = quotes.concat(extraQuotes);
-                let randomIndex;
-                do {
-                    randomIndex = Math.floor(Math.random() * combinedQuotes.length);
-                } while (randomIndex === previousIndex);
-                previousIndex = randomIndex;
+                let combinedQuotes = [
+                    "Η δύναμη στην ζωή δεν έρχεται από τι μπορείς να κάνεις τώρα αλλά έρχεται από να κάνεις τα πραγραμα που πίστευες ότι δεν θα μπορούσες",
+                    "Αυτός που δεν είναι ευχαριστημένος με αυτό που έχει δεν θα είναι ευχαριστημένος με αυτό που θα ήθελε να έχει — Σωκράτης",
+                    "Η ζωή είναι μια βόλτα απόλαυσε την γιατί δεν υπάρχει εισιτήριο επιστροφής",
+                    // Add more quotes here
+                ];
+
+                let randomIndex = Math.floor(Math.random() * combinedQuotes.length);
 
                 $('#quoteText').fadeOut(function () {
                     $(this).text(combinedQuotes[randomIndex]).fadeIn().css('opacity', 1).css('transform', 'translateY(0)');
@@ -238,4 +207,3 @@
 </body>
 
 </html>
-
