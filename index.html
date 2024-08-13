@@ -6,25 +6,29 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quota</title>
     <style>
+        /* Base styles */
         body {
             margin: 0;
             font-family: 'Helvetica', sans-serif;
             background: url('/quota.github.io/image.png') no-repeat center center fixed;
             background-size: cover;
+            animation: backgroundAnimation 30s linear infinite;
             color: #fff;
             display: flex;
             flex-direction: column;
             align-items: center;
+            scroll-behavior: smooth;
         }
 
+        /* Navbar styles */
         .navbar {
             display: flex;
             justify-content: center;
-            background: linear-gradient(135deg, #333, #000); /* Gradient for the black bar */
+            background: linear-gradient(135deg, #333, #000);
             padding: 10px;
             width: 100%;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            border-bottom: 2px solid #ffcc66; /* Add a border at the bottom matching the theme */
+            border-bottom: 2px solid #ffcc66;
             position: fixed;
             top: 0;
             left: 0;
@@ -37,31 +41,45 @@
             text-decoration: none;
             text-align: center;
             font-size: 16px;
-            transition: background 0.3s, transform 0.3s;
+            transition: background 0.3s, transform 0.3s, color 0.3s;
             margin: 0 5px;
             border-radius: 5px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .navbar a::after {
+            content: "";
+            position: absolute;
+            left: 50%;
+            bottom: 0;
+            height: 2px;
+            width: 0;
+            background: #ffcc66;
+            transition: width 0.3s ease, left 0.3s ease;
+        }
+
+        .navbar a:hover::after {
+            width: 100%;
+            left: 0;
         }
 
         .navbar a:nth-child(1) {
-            background-color: #ff9966; /* Light Coral */
+            background-color: #ff9966;
         }
 
         .navbar a:nth-child(2) {
-            background-color: #ffcc66; /* Pale Yellow */
+            background-color: #ffcc66;
         }
 
-        .navbar a:hover {
-            transform: scale(1.1);
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
-        }
-
+        /* Content styles */
         .content {
             display: none;
             padding: 15px;
             text-align: center;
             width: 100%;
-            max-width: 300px; /* Smaller box for mobile */
-            margin-top: 60px; /* Offset for fixed navbar */
+            max-width: 300px;
+            margin-top: 60px;
             margin-left: auto;
             margin-right: auto;
         }
@@ -73,9 +91,9 @@
         .container,
         .daily-quotes-container {
             width: 100%;
-            max-width: 300px; /* Smaller box for mobile */
-            padding: 10px; /* Reduced padding */
-            background: rgba(255, 204, 128, 0.9); /* Light Coral */
+            max-width: 300px;
+            padding: 10px;
+            background: rgba(255, 204, 128, 0.9);
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
             animation: fadeIn 2s ease-in-out;
@@ -85,38 +103,39 @@
         }
 
         h1 {
-            font-size: 1.5rem; /* Smaller font size for mobile */
-            margin-bottom: 0.5rem; /* Adjusted spacing */
-            color: #333; /* Darker text for contrast */
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #333;
         }
 
         button {
-            background: #ffcc66; /* Match button color to the theme */
-            color: #333; /* Darker text for contrast */
-            padding: 0.5rem 1rem; /* Adjusted padding */
+            background: #ffcc66;
+            color: #333;
+            padding: 0.5rem 1rem;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background 0.6s ease, transform 0.6s ease;
-            font-size: 1rem; /* Smaller font size for mobile */
+            transition: background 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+            font-size: 1rem;
         }
 
         button:hover {
-            background: #ff9966; /* Darker version of the theme color */
+            background: #ff9966;
             transform: scale(1.1);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
         }
 
         #quoteText {
-            margin-top: 1rem; /* Adjusted margin */
-            font-size: 1.25rem; /* Smaller font size for mobile */
+            margin-top: 1rem;
+            font-size: 1.25rem;
             opacity: 0;
-            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
             line-height: 1.4;
-            color: #333; /* Darker text for contrast */
+            color: #333;
         }
 
         .quote-post {
-            margin-bottom: 10px; /* Reduced margin */
+            margin-bottom: 10px;
             padding: 10px;
             background-color: rgba(255, 255, 255, 0.1);
             border-radius: 5px;
@@ -133,39 +152,135 @@
             }
         }
 
+        @keyframes backgroundAnimation {
+            0% {
+                background-position: 0% 0%;
+            }
+
+            100% {
+                background-position: 100% 100%;
+            }
+        }
+
         @media (min-width: 768px) {
             .navbar a {
-                padding: 14px 20px; /* Adjust padding for larger screens */
-                font-size: 18px; /* Revert to larger font size */
-                margin: 0 10px; /* Revert to larger margin */
+                padding: 14px 20px;
+                font-size: 18px;
+                margin: 0 10px;
             }
 
             .content {
                 padding: 20px;
-                max-width: 500px; /* Larger box for tablets/desktops */
-                margin-top: 80px; /* Adjusted margin for larger screens */
+                max-width: 500px;
+                margin-top: 80px;
             }
 
             .container,
             .daily-quotes-container {
-                max-width: 500px; /* Larger box for tablets/desktops */
+                max-width: 500px;
                 padding: 20px;
             }
 
             h1 {
-                font-size: 2.5rem; /* Larger font size for tablets/desktops */
+                font-size: 2.5rem;
             }
 
             button {
-                font-size: 1.5rem; /* Larger font size for tablets/desktops */
+                font-size: 1.5rem;
                 padding: 0.75rem 1.5rem;
             }
 
             #quoteText {
-                font-size: 1.75rem; /* Larger font size for tablets/desktops */
+                font-size: 1.75rem;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .navbar a {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            .content {
+                padding: 10px;
+            }
+
+            button {
+                font-size: 0.9rem;
+                padding: 0.4rem 0.8rem;
+            }
+
+            #quoteText {
+                font-size: 1rem;
+            }
+        }
+
+        /* Loading spinner styles */
+        .loading {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 1.5rem;
+            color: #ffcc66;
+            display: none;
+        }
+
+        .loading::before {
+            content: '';
+            border: 4px solid #f3f3f3;
+            border-top: 4px solid #ffcc66;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            animation: spin 1s linear infinite;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
             }
         }
     </style>
+</head>
+
+<body>
+    <div id="loading" class="loading">Loading...</div>
+
+    <div class="navbar">
+        <a href="#" data-target="quoteGenerator">Quote Generator</a>
+        <a href="#" data-target="dailyQuotes">Daily Quotes</a>
+    </div>
+
+    <div id="quoteGenerator" class="content active">
+        <div class="container">
+            <h1>Παν ουλα λάθος?</h1>
+            <button id="quoteButton">Σηκου Πανω Ρεεεεεε</button>
+            <p id="quoteText"></p>
+        </div>
+        <audio>
+            <source src="/quota.github.io/STAND_UP.mp3" type="audio/mpeg">
+        </audio>
+    </div>
+
+    <div id="dailyQuotes" class="content">
+        <div class="daily-quotes-container">
+            <h1>Daily Quotes</h1>
+            <div class="quote-post">
+                <p><strong>Date:</strong> August 12, 2024</p>
+                <p>Η αγάπη δεν έχει όρια, όπως και η δύναμή σου.</p>
+            </div>
+            <div class="quote-post">
+                <p><strong>Date:</strong> August 11, 2024</p>
+                <p>Το μέλλον ανήκει σε αυτούς που πιστεύουν στα όνειρά τους.</p>
+            </div>
+        </div>
+    </div>
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         const quotes = [
@@ -197,12 +312,17 @@
         let previousIndex = -1;
 
         $(document).ready(function () {
+            $('#loading').fadeOut();
+
             $('.navbar a').click(function () {
+                $('#loading').fadeIn();
                 $('.content').removeClass('active');
                 $('#' + $(this).data('target')).addClass('active');
+                $('#loading').fadeOut();
             });
 
             $('#quoteButton').click(function () {
+                $('#loading').fadeIn();
                 document.getElementsByTagName("audio")[0].play();
 
                 let combinedQuotes = quotes.concat(extraQuotes);
@@ -212,47 +332,13 @@
                 } while (randomIndex === previousIndex);
                 previousIndex = randomIndex;
 
-                $('#quoteText').fadeOut(function () {
-                    $(this).text(combinedQuotes[randomIndex]).fadeIn().css('opacity', 1).css('transform', 'translateY(0)');
+                $('#quoteText').fadeOut(300, function () {
+                    $(this).text(combinedQuotes[randomIndex]).fadeIn(300);
+                    $('#loading').fadeOut();
                 });
             });
         });
     </script>
-</head>
-
-<body>
-  
-    <div class="navbar">
-        <a href="#" data-target="quoteGenerator">Quote Generator</a>
-        <a href="#" data-target="dailyQuotes">Daily Quotes</a>
-    </div>
-
-    <div id="quoteGenerator" class="content active">
-        <div class="container">
-            <h1>Παν ουλα λάθος?</h1>
-            <button id="quoteButton">Σηκου Πανω Ρεεεεεε</button>
-            <p id="quoteText"></p>
-        </div>
-        <audio>
-            <source src="/quota.github.io/STAND_UP.mp3" type="audio/mpeg">
-        </audio>
-    </div>
-
-
-    <div id="dailyQuotes" class="content">
-        <div class="daily-quotes-container">
-            <h1>Daily Quotes</h1>
-            <div class="quote-post">
-                <p><strong>Date:</strong> August 12, 2024</p>
-                <p>Η αγάπη δεν έχει όρια, όπως και η δύναμή σου.</p>
-            </div>
-            <div class="quote-post">
-                <p><strong>Date:</strong> August 11, 2024</p>
-                <p>Το μέλλον ανήκει σε αυτούς που πιστεύουν στα όνειρά τους.</p>
-            </div>
- 
-        </div>
-    </div>
 </body>
 
 </html>
