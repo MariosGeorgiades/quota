@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -130,7 +129,6 @@
             from {
                 opacity: 0;
             }
-
             to {
                 opacity: 1;
             }
@@ -169,6 +167,23 @@
             }
         }
     </style>
+</head>
+<body>
+    <div class="navbar">
+        <a href="#" id="homeButton">Quota</a>
+        <a href="#" id="dailyQuotesButton">ΚΑΘΗΜΕΡΙΝΗ ΦΙΛΟΣΟΦΙΑ</a>
+    </div>
+    <div class="content home-content active">
+        <div class="container">
+            <h1>Παν ουλα λάθος</h1>
+            <button id="showQuoteButton">Σήκου Πάνω ΡΕΕΕΕΕ</button>
+            <p id="quoteText"></p>
+            <audio id="audioPlayer" src="/quota.github.io/STAND_UP.mp3" preload="auto"></audio>
+        </div>
+    </div>
+    <div class="content daily-quotes-content">
+        <div class="daily-quotes-container"></div>
+    </div>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
@@ -254,7 +269,7 @@
                 const dayOfMonth = today.getDate();
                 const dailyQuoteIndex = dayOfMonth % quotes.length;
                 const dailyQuote = quotes[dailyQuoteIndex];
-                $('.daily-quotes-container').html(
+                $('.daily-quotes-container').html(`
                     <h1>Daily Quote</h1>
                     <div class="quote-post">
                         <p>“${dailyQuote}”</p>
@@ -263,7 +278,7 @@
                     <div class="quote-post">
                         <p>${getDailyTip()}</p>
                     </div>
-                );
+                `);
             }
 
             $('#showQuoteButton').click(function () {
@@ -286,24 +301,5 @@
             $('#homeButton').click(); // Initialize with the home content
         });
     </script>
-</head>
-
-<body>
-    <div class="navbar">
-        <a href="#" id="homeButton">Quota</a>
-        <a href="#" id="dailyQuotesButton">ΚΑΘΗΜΕΡΙΝΗ ΦΙΛΟΣΟΦΙΑ</a>
-    </div>
-    <div class="content home-content active">
-        <div class="container">
-            <h1>Παν ουλα λάθος</h1>
-            <button id="showQuoteButton">Σήκου Πάνω ΡΕΕΕΕΕ</button>
-            <p id="quoteText"></p>
-            <audio id="audioPlayer" src="/quota.github.io/STAND_UP.mp3" preload="auto"></audio>
-        </div>
-    </div>
-    <div class="content daily-quotes-content">
-        <div class="daily-quotes-container"></div>
-    </div>
 </body>
-
 </html>
