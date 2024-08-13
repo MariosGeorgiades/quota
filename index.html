@@ -31,7 +31,7 @@
             z-index: 1000;
         }
 
-        .navbar a {
+        .navbar .tab {
             color: #ffffff;
             padding: 12px 16px;
             text-decoration: none;
@@ -40,19 +40,34 @@
             transition: background 0.3s, transform 0.3s;
             margin: 0 5px;
             border-radius: 5px;
+            cursor: pointer;
         }
 
-        .navbar a:nth-child(1) {
+        .navbar .tab:nth-child(1) {
             background-color: #ff9966; /* Light Coral */
         }
 
-        .navbar a:nth-child(2) {
+        .navbar .tab:nth-child(2) {
             background-color: #ffcc66; /* Pale Yellow */
         }
 
-        .navbar a:hover {
+        .navbar .tab:hover {
             transform: scale(1.1);
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .navbar .star {
+            display: inline-block;
+            font-size: 20px;
+            cursor: pointer;
+            color: #ffcc66;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        .navbar .star:hover {
+            color: #ff9966;
+            transform: scale(1.2);
         }
 
         .content {
@@ -60,20 +75,25 @@
             padding: 15px;
             text-align: center;
             width: 100%;
-            max-width: 300px; /* Smaller box for mobile */
+            max-width: 250px; /* Smaller box for mobile */
             margin-top: 60px; /* Offset for fixed navbar */
             margin-left: auto;
             margin-right: auto;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
         }
 
         .content.active {
             display: block;
+            opacity: 1;
+            transform: translateY(0);
         }
 
         .container,
         .daily-quotes-container {
             width: 100%;
-            max-width: 300px; /* Smaller box for mobile */
+            max-width: 250px; /* Smaller box for mobile */
             padding: 10px; /* Reduced padding */
             background: rgba(255, 204, 128, 0.9); /* Light Coral */
             border-radius: 10px;
@@ -82,10 +102,13 @@
             text-align: center;
             margin-left: auto;
             margin-right: auto;
+            opacity: 0;
+            transform: translateY(-20px);
+            transition: opacity 0.5s ease-in-out, transform 0.5s ease-in-out;
         }
 
         h1 {
-            font-size: 1.5rem; /* Smaller font size for mobile */
+            font-size: 1.25rem; /* Smaller font size for mobile */
             margin-bottom: 0.5rem; /* Adjusted spacing */
             color: #333; /* Darker text for contrast */
         }
@@ -134,7 +157,7 @@
         }
 
         @media (min-width: 768px) {
-            .navbar a {
+            .navbar .tab {
                 padding: 14px 20px; /* Adjust padding for larger screens */
                 font-size: 18px; /* Revert to larger font size */
                 margin: 0 10px; /* Revert to larger margin */
@@ -197,9 +220,15 @@
         let previousIndex = -1;
 
         $(document).ready(function () {
-            $('.navbar a').click(function () {
+            $('.navbar .tab').click(function () {
                 $('.content').removeClass('active');
                 $('#' + $(this).data('target')).addClass('active');
+            });
+
+            $('.navbar .star').click(function () {
+                let target = $(this).data('target');
+                $('.content').removeClass('active');
+                $('#' + target).addClass('active');
             });
 
             $('#quoteButton').click(function () {
@@ -223,8 +252,10 @@
 <body>
   
     <div class="navbar">
-        <a href="#" data-target="quoteGenerator">Quote Generator</a>
-        <a href="#" data-target="dailyQuotes">Daily Quotes</a>
+        <span class="star" data-target="quoteGenerator">⭐</span>
+        <span class="star" data-target="dailyQuotes">🌟</span>
+        <span class="tab" data-target="quoteGenerator">Quote Generator</span>
+        <span class="tab" data-target="dailyQuotes">Daily Quotes</span>
     </div>
 
     <div id="quoteGenerator" class="content active">
@@ -238,7 +269,6 @@
         </audio>
     </div>
 
-
     <div id="dailyQuotes" class="content">
         <div class="daily-quotes-container">
             <h1>Daily Quotes</h1>
@@ -250,7 +280,6 @@
                 <p><strong>Date:</strong> August 11, 2024</p>
                 <p>Το μέλλον ανήκει σε αυτούς που πιστεύουν στα όνειρά τους.</p>
             </div>
- 
         </div>
     </div>
 </body>
