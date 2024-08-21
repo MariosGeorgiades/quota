@@ -125,6 +125,29 @@
             text-align: left;
         }
 
+        #voiceAssistantButton {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #ffcc66;
+            border: none;
+            border-radius: 50%;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        #voiceAssistantButton img {
+            width: 24px;
+            height: 24px;
+        }
+
+        #voiceAssistantButton:hover {
+            background-color: #ff9966;
+            transform: scale(1.1);
+        }
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -184,7 +207,9 @@
     <div class="content daily-quotes-content">
         <div class="daily-quotes-container"></div>
     </div>
-    <button id="voiceAssistantButton">Ενεργοποίηση Φωνητικού Βοηθού</button>
+    <button id="voiceAssistantButton">
+        <img src="https://img.icons8.com/ios-filled/50/000000/microphone.png" alt="Voice Assistant">
+    </button>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
@@ -208,19 +233,21 @@
                 "Η αυτογνωσία είναι το πρώτο βήμα προς την εσωτερική ειρήνη.",
                 "Η ευτυχία δεν είναι μια κατάσταση αλλά μια διαδικασία.",
                 "Η αλήθεια δεν έχει να κάνει με αυτό που λέγεται, αλλά με αυτό που κατανοείται.",
-                "Η σκέψη είναι το εργαλείο που χρησιμοποιούμε για να κατανοήσουμε τον κόσμο γύρω μας.",
-                "Η φιλοσοφία είναι η τέχνη του να ζεις σύμφωνα με την αλήθεια που ανακαλύπτεις.",
-                "Η ζωή είναι η συνεχής αναζήτηση για νόημα μέσα από τις εμπειρίες μας.",
-                "Η εσωτερική γαλήνη προέρχεται από την αποδοχή της πραγματικότητας.",
-                "Η φιλοσοφία μας διδάσκει ότι η αλήθεια δεν είναι πάντα απλή, αλλά είναι πάντα πολύτιμη.",
-                "Η ζωή είναι ένας κύκλος που συνεχώς ανανεώνεται."
+                "Η ζωή είναι πιο απλή όταν δεν προσπαθείς να κατανοήσεις τα πάντα."
             ];
 
-            $('#showQuoteButton').click(function () {
+            function showRandomQuote() {
                 const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-                $('#quoteText').text(randomQuote).css('opacity', 1);
-                $('#audioPlayer')[0].play();
-            });
+                $('#quoteText').text(randomQuote).css('opacity', '1').css('transform', 'translateY(0)');
+            }
+
+            function getDailyQuote() {
+                const currentDate = new Date();
+                const startOfYear = new Date(currentDate.getFullYear(), 0, 0);
+                const dayOfYear = Math.floor((currentDate - startOfYear) / (1000 * 60 * 60 * 24));
+                const quoteIndex = dayOfYear % quotes.length;
+                return quotes[quoteIndex];
+            }
 
             $('#homeButton').click(function () {
                 $('.content').removeClass('active');
@@ -230,48 +257,33 @@
             $('#dailyQuotesButton').click(function () {
                 $('.content').removeClass('active');
                 $('.daily-quotes-content').addClass('active');
-                showDailyQuotes();
+                const dailyQuote = getDailyQuote();
+                $('.daily-quotes-container').html(`<div class="quote-post">${dailyQuote}</div>`);
             });
 
-            function showDailyQuotes() {
-                const dailyQuotesContainer = $('.daily-quotes-container');
-                dailyQuotesContainer.empty();
-                quotes.forEach(quote => {
-                    dailyQuotesContainer.append(`<div class="quote-post">${quote}</div>`);
-                });
-            }
-
-            // Voice Assistant functionality
-            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
-            recognition.lang = 'el-GR'; // Set the language to Greek
-            recognition.interimResults = false;
-
-            const synth = window.speechSynthesis;
+            $('#showQuoteButton').click(function () {
+                showRandomQuote();
+                $('#audioPlayer')[0].play();
+            });
 
             $('#voiceAssistantButton').click(function () {
+                const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+                recognition.lang = 'el-GR';
+
+                recognition.onresult = function (event) {
+                    const transcript = event.results[0][0].transcript.toLowerCase();
+
+                    if (transcript.includes('απόφθεγμα') || transcript.includes('φιλοσοφία')) {
+                        $('#dailyQuotesButton').click();
+                    } else if (transcript.includes('σήκω πάνω') || transcript.includes('παίξε μουσική')) {
+                        $('#showQuoteButton').click();
+                    } else {
+                        alert('Δυστυχώς δεν αναγνωρίζω αυτή την εντολή.');
+                    }
+                };
+
                 recognition.start();
             });
-
-            recognition.onresult = function (event) {
-                const transcript = event.results[0][0].transcript.trim().toLowerCase();
-
-                if (transcript.includes("καλημέρα")) {
-                    speak("Καλημέρα! Πώς μπορώ να σας βοηθήσω;");
-                } else if (transcript.includes("τι κάνεις")) {
-                    speak("Είμαι εδώ για να σας βοηθήσω με ό,τι χρειάζεστε.");
-                } else if (transcript.includes("πες μου ένα απόφθεγμα")) {
-                    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
-                    speak(randomQuote);
-                } else {
-                    speak("Συγγνώμη, δεν κατάλαβα. Παρακαλώ δοκιμάστε ξανά.");
-                }
-            };
-
-            function speak(text) {
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = 'el-GR'; // Set the language to Greek
-                synth.speak(utterance);
-            }
         });
     </script>
 </body>
