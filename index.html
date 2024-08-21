@@ -184,6 +184,7 @@
     <div class="content daily-quotes-content">
         <div class="daily-quotes-container"></div>
     </div>
+    <button id="voiceAssistantButton">Ενεργοποίηση Φωνητικού Βοηθού</button>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
@@ -212,78 +213,12 @@
                 "Η ζωή είναι η συνεχής αναζήτηση για νόημα μέσα από τις εμπειρίες μας.",
                 "Η εσωτερική γαλήνη προέρχεται από την αποδοχή της πραγματικότητας.",
                 "Η φιλοσοφία μας διδάσκει ότι η αλήθεια δεν είναι πάντα απλή, αλλά είναι πάντα πολύτιμη.",
-                "Η ζωή είναι γεμάτη από μικρές αλήθειες που σχηματίζουν μια μεγαλύτερη εικόνα.",
-                "Η αληθινή ελευθερία έρχεται από την εσωτερική αποδοχή των περιορισμών μας.",
-                "Η σοφία βρίσκεται στην ικανότητα να βλέπουμε την πραγματικότητα χωρίς προκαταλήψεις.",
-                "Η ζωή είναι ένας δρόμος γεμάτος από διασταυρώσεις, και εμείς επιλέγουμε τον προορισμό μας.",
-                "Η έννοια της ευτυχίας εξαρτάται από την εσωτερική μας στάση απέναντι στη ζωή.",
-                "Η φιλοσοφία δεν είναι απλώς μια θεωρητική γνώση, αλλά μια πρακτική καθοδήγηση για τη ζωή.",
-                "Η εσωτερική δύναμη προέρχεται από την κατανόηση του εαυτού μας και των κινήτρων μας.",
-                "Η σοφία είναι η τέχνη να γνωρίζεις πότε να μιλήσεις και πότε να σιωπήσεις.",
-                "Η αλήθεια είναι το φως που καθοδηγεί την ψυχή μας στον δρόμο της ευτυχίας.",
-                "Η ζωή είναι ένα ταξίδι συνεχούς μάθησης και αυτογνωσίας.",
-                "Η πραγματική ευτυχία βρίσκεται στην απλότητα και την εσωτερική γαλήνη.",
-                "Η αλήθεια είναι η ενότητα όλων των αντιφάσεων που συνυπάρχουν στην πραγματικότητα.",
-                "Η φιλοσοφία μας διδάσκει ότι η αληθινή ευτυχία είναι αποτέλεσμα της εσωτερικής μας ανάπτυξης."
+                "Η ζωή είναι ένας κύκλος που συνεχώς ανανεώνεται."
             ];
-
-            const dailyTips = [
-                "Ξεκίνα την ημέρα σου με ευγνωμοσύνη. Σκέψου τρία πράγματα για τα οποία είσαι ευγνώμον.",
-                "Δώσε προτεραιότητα στην υγεία σου. Κάνε μια σύντομη άσκηση ή βόλτα κάθε μέρα.",
-                "Οργάνωσε την ημέρα σου με μια λίστα προτεραιοτήτων. Αυτό θα σε βοηθήσει να διαχειριστείς καλύτερα το χρόνο σου.",
-                "Δημιούργησε έναν προσωπικό χώρο χαλάρωσης όπου μπορείς να ξεκουραστείς και να ανασυγκροτηθείς.",
-                "Μάθε κάτι νέο κάθε μέρα για να διευρύνεις τις γνώσεις σου.",
-                "Αφιερώστε χρόνο για να συνδεθείς με τους ανθρώπους γύρω σου και να ενισχύσεις τις σχέσεις σου.",
-                "Μην αφήνεις τις μικρές αποτυχίες να σε αποθαρρύνουν. Κάθε αποτυχία είναι μια ευκαιρία για μάθηση.",
-                "Δημιούργησε μια συνήθεια να διαβάζεις ένα βιβλίο ή να ακούς ένα εκπαιδευτικό podcast καθημερινά.",
-                "Κάνε μικρές αλλαγές στη ρουτίνα σου για να ενισχύσεις τη δημιουργικότητά σου.",
-                "Αφιέρωσε χρόνο για να κάνεις κάτι που σε ευχαριστεί και σε αναζωογονεί.",
-                "Καθόρισε στόχους για την ημέρα σου και παρακολούθησε την πρόοδό σου.",
-                "Δημιούργησε μία θετική επιρροή γύρω σου με τη συμπεριφορά και τις ενέργειές σου.",
-                "Συμμετοχή σε μία δραστηριότητα που σε κάνει να νιώθεις χαρούμενος και ευτυχισμένος.",
-                "Μάθε να αναγνωρίζεις και να αποδέχεσαι τα συναισθήματά σου για να επιτύχεις εσωτερική γαλήνη.",
-                "Χρησιμοποίησε τη φαντασία σου για να δεις το μέλλον με αισιοδοξία και ελπίδα.",
-                "Αναγνώρισε τις επιτυχίες σου και γιόρτασέ τες, ακόμη και τις μικρές.",
-                "Δημιούργησε έναν χώρο δημιουργικότητας για να εκφράσεις τις ιδέες σου.",
-                "Δοκίμασε νέες δραστηριότητες και προκλήσεις για να διευρύνεις τους ορίζοντές σου.",
-                "Δώσε προσοχή στην αναπνοή σου και χρησιμοποιήσε την για να ηρεμήσεις και να συγκεντρωθείς.",
-                "Ανασκόπησε την ημέρα σου με αυτοκριτική και σχεδίασε βελτιώσεις για την επόμενη μέρα."
-            ];
-
-            let quoteIndex = 0;
-
-            function showQuote() {
-                const quote = quotes[quoteIndex];
-                $('#quoteText').text(quote).css('opacity', 1).css('transform', 'scale(1)');
-                quoteIndex = (quoteIndex + 1) % quotes.length;
-            }
-
-            function getDailyTip() {
-                const today = new Date();
-                const tipIndex = today.getDate() % dailyTips.length;
-                return dailyTips[tipIndex];
-            }
-
-            function displayDailyContent() {
-                const today = new Date();
-                const dayOfMonth = today.getDate();
-                const dailyQuoteIndex = dayOfMonth % quotes.length;
-                const dailyQuote = quotes[dailyQuoteIndex];
-                $('.daily-quotes-container').html(`
-                    <h1>Daily Quote</h1>
-                    <div class="quote-post">
-                        <p>“${dailyQuote}”</p>
-                    </div>
-                    <h2>Tip of the Day</h2>
-                    <div class="quote-post">
-                        <p>${getDailyTip()}</p>
-                    </div>
-                `);
-            }
 
             $('#showQuoteButton').click(function () {
-                $('#quoteText').css('opacity', 0).css('transform', 'scale(0.9)');
-                setTimeout(showQuote, 400);
+                const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+                $('#quoteText').text(randomQuote).css('opacity', 1);
                 $('#audioPlayer')[0].play();
             });
 
@@ -295,10 +230,48 @@
             $('#dailyQuotesButton').click(function () {
                 $('.content').removeClass('active');
                 $('.daily-quotes-content').addClass('active');
-                displayDailyContent();
+                showDailyQuotes();
             });
 
-            $('#homeButton').click();
+            function showDailyQuotes() {
+                const dailyQuotesContainer = $('.daily-quotes-container');
+                dailyQuotesContainer.empty();
+                quotes.forEach(quote => {
+                    dailyQuotesContainer.append(`<div class="quote-post">${quote}</div>`);
+                });
+            }
+
+            // Voice Assistant functionality
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'el-GR'; // Set the language to Greek
+            recognition.interimResults = false;
+
+            const synth = window.speechSynthesis;
+
+            $('#voiceAssistantButton').click(function () {
+                recognition.start();
+            });
+
+            recognition.onresult = function (event) {
+                const transcript = event.results[0][0].transcript.trim().toLowerCase();
+
+                if (transcript.includes("καλημέρα")) {
+                    speak("Καλημέρα! Πώς μπορώ να σας βοηθήσω;");
+                } else if (transcript.includes("τι κάνεις")) {
+                    speak("Είμαι εδώ για να σας βοηθήσω με ό,τι χρειάζεστε.");
+                } else if (transcript.includes("πες μου ένα απόφθεγμα")) {
+                    const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
+                    speak(randomQuote);
+                } else {
+                    speak("Συγγνώμη, δεν κατάλαβα. Παρακαλώ δοκιμάστε ξανά.");
+                }
+            };
+
+            function speak(text) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'el-GR'; // Set the language to Greek
+                synth.speak(utterance);
+            }
         });
     </script>
 </body>
