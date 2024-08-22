@@ -229,9 +229,8 @@
                 "Η αληθινή σοφία δεν είναι να γνωρίζεις πολλά, αλλά να κατανοείς την αξία της γνώσης.",
                 "Η πραγματική σοφία έρχεται από την εμπειρία και την αυτογνωσία.",
                 "Ο νους είναι σαν ένα ανοιχτό βιβλίο. Η κατανόηση έρχεται όταν το διαβάζεις με προσοχή.",
-                "Η ζωή είναι σαν ένα ποτάμι που ρέει συνεχώς, και εμείς είμαστε οι ταξιδιώτες του.",
-                "Η αυτογνωσία είναι το πρώτο βήμα προς την εσωτερική ειρήνη.",
-                "Η ευτυχία δεν είναι μια κατάσταση αλλά μια διαδικασία.",
+                "Η ζωή είναι σαν ένα ποτάμι που ρέει συνεχώς, και εμείς είμαστε οι ναυτικοί που πρέπει να προσαρμοστούμε στις αλλαγές του.",
+                "Η σοφία δεν είναι μια κατάσταση αλλά μια διαδικασία.",
                 "Η αλήθεια δεν έχει να κάνει με αυτό που λέγεται, αλλά με αυτό που κατανοείται.",
                 "Η ζωή είναι πιο απλή όταν δεν προσπαθείς να κατανοήσεις τα πάντα."
             ];
@@ -249,6 +248,12 @@
                 return quotes[quoteIndex];
             }
 
+            function speakText(text) {
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'el-GR'; // Greek language
+                window.speechSynthesis.speak(utterance);
+            }
+
             $('#homeButton').click(function () {
                 $('.content').removeClass('active');
                 $('.home-content').addClass('active');
@@ -259,6 +264,7 @@
                 $('.daily-quotes-content').addClass('active');
                 const dailyQuote = getDailyQuote();
                 $('.daily-quotes-container').html(`<div class="quote-post">${dailyQuote}</div>`);
+                speakText(dailyQuote);
             });
 
             $('#showQuoteButton').click(function () {
@@ -267,6 +273,9 @@
             });
 
             $('#voiceAssistantButton').click(function () {
+                const introduction = "Γειά σου, είμαι ο φωνητικός σου βοηθός. Μπορώ να σου διαβάσω ένα απόφθεγμα, να σου το εξηγήσω, ή να σου δώσω κάποια ενθάρρυνση. Πες μου τι θέλεις να κάνω.";
+                speakText(introduction);
+
                 const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
                 recognition.lang = 'el-GR';
 
@@ -277,8 +286,15 @@
                         $('#dailyQuotesButton').click();
                     } else if (transcript.includes('σήκω πάνω') || transcript.includes('παίξε μουσική')) {
                         $('#showQuoteButton').click();
+                    } else if (transcript.includes('εξήγησε')) {
+                        const dailyQuote = getDailyQuote();
+                        const explanation = `Αυτό το απόφθεγμα σημαίνει ότι ${dailyQuote}. Είναι ένα υπενθύμιση για να σκεφτούμε τα βαθύτερα νοήματα πίσω από τις λέξεις.`;
+                        $('.daily-quotes-container').html(`<div class="quote-post">${dailyQuote}</div><div class="quote-explanation">${explanation}</div>`);
+                        speakText(explanation);
                     } else {
-                        alert('Δυστυχώς δεν αναγνωρίζω αυτή την εντολή.');
+                        const errorText = 'Δυστυχώς δεν αναγνωρίζω αυτή την εντολή. Δοκίμασε ξανά.';
+                        alert(errorText);
+                        speakText(errorText);
                     }
                 };
 
