@@ -148,6 +148,30 @@
             transform: scale(1.1);
         }
 
+        #stopTalkingButton {
+            display: none;
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #ff6666;
+            border: none;
+            border-radius: 50%;
+            padding: 15px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        #stopTalkingButton img {
+            width: 24px;
+            height: 24px;
+        }
+
+        #stopTalkingButton:hover {
+            background-color: #ff3333;
+            transform: scale(1.1);
+        }
+
         @keyframes fadeIn {
             from {
                 opacity: 0;
@@ -210,6 +234,9 @@
     <button id="voiceAssistantButton">
         <img src="https://img.icons8.com/ios-filled/50/000000/microphone.png" alt="Voice Assistant">
     </button>
+    <button id="stopTalkingButton">
+        <img src="https://img.icons8.com/ios-filled/50/000000/stop.png" alt="Stop Talking">
+    </button>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
         $(document).ready(function () {
@@ -223,50 +250,34 @@
                 "Δεν χρειάζεται να λες τι ξέρεις. Είναι όμως απαραίτητο να ξέρεις τι λες",
                 "Το μεγαλύτερο λάθος που μπορείς να κάνεις στην ζωή σου είναι να ζεις με τον φόβο μήπως κάνεις λάθος",
                 "Κλείσε το παράθυρο που σε ενοχλεί όσο όμορφη και αν είναι η θέα που βλέπεις.",
-                "Ο κόσμος δεν έγινε χειρότερος απλά άνοιξαν τα μάτια σου",
-                "Η ζωή είναι το αποτέλεσμα των επιλογών που κάνουμε.",
-                "Η γνώση μας είναι περιορισμένη, αλλά η άγνοιά μας είναι ατελείωτη.",
-                "Η αληθινή σοφία δεν είναι να γνωρίζεις πολλά, αλλά να κατανοείς την αξία της γνώσης.",
-                "Η πραγματική σοφία έρχεται από την εμπειρία και την αυτογνωσία.",
-                "Ο νους είναι σαν ένα ανοιχτό βιβλίο. Η κατανόηση έρχεται όταν το διαβάζεις με προσοχή.",
-                "Η ζωή είναι σαν ένα ποτάμι που ρέει συνεχώς, και εμείς είμαστε οι ταξιδιώτες του.",
-                "Η αυτογνωσία είναι το πρώτο βήμα προς την εσωτερική ειρήνη.",
-                "Η ευτυχία δεν είναι μια κατάσταση αλλά μια διαδικασία.",
-                "Η πραγματική δύναμη έρχεται όταν μαθαίνεις να ελέγχεις τον εαυτό σου, όχι όταν προσπαθείς να ελέγξεις τα πάντα.",
-                "Η πραγματική ελευθερία είναι η ικανότητα να ζεις με αρετή.",
-                "Η αγάπη είναι η δύναμη που ενώνει τις καρδιές και αναζωογονεί την ψυχή.",
-                "Η σοφία έρχεται όταν καταλαβαίνεις ότι δεν χρειάζεται να έχεις όλες τις απαντήσεις.",
-                "Η καλοσύνη είναι η γλώσσα που ο καθένας μπορεί να καταλάβει.",
-                "Η φιλία είναι η ψυχή που μοιράζεται ανάμεσα σε δύο καρδιές.",
-                "Η ζωή δεν μετριέται από τον αριθμό των αναπνοών που παίρνουμε, αλλά από τις στιγμές που μας κόβουν την ανάσα.",
-                "Η μεγαλύτερη επιτυχία είναι να μπορείς να αποδεχτείς τον εαυτό σου.",
-                "Η υπομονή είναι η αρετή των σοφών."
+                "Ο κόσμος δεν έγινε χειρότερος, αλλά έμεις βελτιωθήκαμε λιγότερο από όσο νομίζαμε."
             ];
+
+            let speechSynthesisInstance;
 
             function showRandomQuote() {
                 const randomQuote = quotes[Math.floor(Math.random() * quotes.length)];
                 $('#quoteText').text(randomQuote).css('opacity', '1').css('transform', 'translateY(0)');
             }
 
-            function getDailyQuote() {
-                const currentDate = new Date();
-                const startOfYear = new Date(currentDate.getFullYear(), 0, 0);
-                const dayOfYear = Math.floor((currentDate - startOfYear) / (1000 * 60 * 60 * 24));
-                const quoteIndex = dayOfYear % quotes.length;
-                return quotes[quoteIndex];
-            }
-
             function speakText(text, callback) {
+                if (speechSynthesisInstance) {
+                    speechSynthesisInstance.cancel(); // Stop any ongoing speech
+                }
+                
                 const utterance = new SpeechSynthesisUtterance(text);
                 utterance.lang = 'el-GR'; // Greek language
 
                 utterance.onend = function () {
+                    $('#stopTalkingButton').hide(); // Hide stop button when done
                     if (callback) {
                         callback(); // Re-initiate listening after speech ends
                     }
                 };
 
-                window.speechSynthesis.speak(utterance);
+                $('#stopTalkingButton').show(); // Show stop button when speaking
+                speechSynthesisInstance = window.speechSynthesis;
+                speechSynthesisInstance.speak(utterance);
             }
 
             function startRecognition() {
@@ -277,45 +288,34 @@
                     const transcript = event.results[0][0].transcript.toLowerCase();
 
                     if (transcript.includes('απόφθεγμα') || transcript.includes('φιλοσοφία')) {
-                        $('#dailyQuotesButton').click();
+                        speakText("Δυστυχώς δεν μπορώ να κάνω αυτό. Παρακαλώ δώστε άλλη εντολή.");
                     } else if (transcript.includes('σήκω πάνω') || transcript.includes('παίξε μουσική')) {
                         $('#showQuoteButton').click();
                     } else if (transcript.includes('εξήγησε')) {
-                        const dailyQuote = getDailyQuote();
-                        const explanation = `Αυτό το απόφθεγμα σημαίνει ότι ${dailyQuote}. Είναι μια υπενθύμιση για να σκεφτούμε τα βαθύτερα νοήματα πίσω από τις λέξεις.`;
-                        $('.daily-quotes-container').html(`<div class="quote-post">${dailyQuote}</div><div class="quote-explanation">${explanation}</div>`);
-                        speakText(explanation, function () {
-                            returnToQuoteGenerator(); // Return to quote generator
-                        });
+                        const randomQuote = $('#quoteText').text();
+                        const explanation = `Αυτό το απόφθεγμα σημαίνει ότι ${randomQuote}. Είναι μια υπενθύμιση για να σκεφτούμε τα βαθύτερα νοήματα πίσω από τις λέξεις.`;
+                        $('.home-content').append(`<div class="quote-explanation">${explanation}</div>`);
+                        speakText(explanation);
                     } else {
                         const errorText = 'Δυστυχώς δεν αναγνωρίζω αυτή την εντολή. Δοκίμασε ξανά.';
                         alert(errorText);
-                        speakText(errorText, function () {
-                            returnToQuoteGenerator(); // Return to quote generator
-                        });
+                        speakText(errorText);
                     }
                 };
 
                 recognition.onerror = function () {
                     const errorText = 'Υπήρξε κάποιο σφάλμα. Δοκίμασε ξανά.';
                     alert(errorText);
-                    speakText(errorText, function () {
-                        returnToQuoteGenerator(); // Return to quote generator
-                    });
+                    speakText(errorText);
                 };
 
                 recognition.start();
             }
 
-            function returnToQuoteGenerator() {
-                $('.content').removeClass('active');
-                $('.home-content').addClass('active');
-                showRandomQuote();
-            }
-
             $('#homeButton').click(function () {
                 $('.content').removeClass('active');
                 $('.home-content').addClass('active');
+                showRandomQuote();
             });
 
             $('#dailyQuotesButton').click(function () {
@@ -323,7 +323,7 @@
                 $('.daily-quotes-content').addClass('active');
                 const dailyQuote = getDailyQuote();
                 $('.daily-quotes-container').html(`<div class="quote-post">${dailyQuote}</div>`);
-                speakText(dailyQuote, startRecognition);
+                speakText(dailyQuote);
             });
 
             $('#showQuoteButton').click(function () {
@@ -334,6 +334,13 @@
             $('#voiceAssistantButton').click(function () {
                 const introduction = "Γειά σου, είμαι ο φωνητικός σου βοηθός. Μπορώ να σου διαβάσω ένα απόφθεγμα, να σου το εξηγήσω, ή να σου δώσω κάποια ενθάρρυνση. Πες μου τι θέλεις να κάνω.";
                 speakText(introduction, startRecognition);
+            });
+
+            $('#stopTalkingButton').click(function () {
+                if (speechSynthesisInstance) {
+                    speechSynthesisInstance.cancel(); // Stop any ongoing speech
+                }
+                $(this).hide(); // Hide the button after stopping
             });
         });
     </script>
