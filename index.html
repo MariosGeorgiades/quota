@@ -232,8 +232,7 @@
                 "Η ζωή είναι σαν ένα ποτάμι που ρέει συνεχώς, και εμείς είμαστε οι ταξιδιώτες του.",
                 "Η αυτογνωσία είναι το πρώτο βήμα προς την εσωτερική ειρήνη.",
                 "Η ευτυχία δεν είναι μια κατάσταση αλλά μια διαδικασία.",
-                "Η αλήθεια δεν έχει να κάνει με αυτό που λέγεται, αλλά με αυτό που κατανοείται.",
-                "Η ζωή είναι πιο απλή όταν δεν προσπαθείς να ελέγξεις τα πάντα.",
+                "Η πραγματική δύναμη έρχεται όταν μαθαίνεις να ελέγχεις τον εαυτό σου, όχι όταν προσπαθείς να ελέγξεις τα πάντα.",
                 "Η πραγματική ελευθερία είναι η ικανότητα να ζεις με αρετή.",
                 "Η αγάπη είναι η δύναμη που ενώνει τις καρδιές και αναζωογονεί την ψυχή.",
                 "Η σοφία έρχεται όταν καταλαβαίνεις ότι δεν χρειάζεται να έχεις όλες τις απαντήσεις.",
@@ -285,21 +284,33 @@
                         const dailyQuote = getDailyQuote();
                         const explanation = `Αυτό το απόφθεγμα σημαίνει ότι ${dailyQuote}. Είναι μια υπενθύμιση για να σκεφτούμε τα βαθύτερα νοήματα πίσω από τις λέξεις.`;
                         $('.daily-quotes-container').html(`<div class="quote-post">${dailyQuote}</div><div class="quote-explanation">${explanation}</div>`);
-                        speakText(explanation, startRecognition);
+                        speakText(explanation, function () {
+                            returnToQuoteGenerator(); // Return to quote generator
+                        });
                     } else {
                         const errorText = 'Δυστυχώς δεν αναγνωρίζω αυτή την εντολή. Δοκίμασε ξανά.';
                         alert(errorText);
-                        speakText(errorText, startRecognition);
+                        speakText(errorText, function () {
+                            returnToQuoteGenerator(); // Return to quote generator
+                        });
                     }
                 };
 
                 recognition.onerror = function () {
                     const errorText = 'Υπήρξε κάποιο σφάλμα. Δοκίμασε ξανά.';
                     alert(errorText);
-                    speakText(errorText, startRecognition);
+                    speakText(errorText, function () {
+                        returnToQuoteGenerator(); // Return to quote generator
+                    });
                 };
 
                 recognition.start();
+            }
+
+            function returnToQuoteGenerator() {
+                $('.content').removeClass('active');
+                $('.home-content').addClass('active');
+                showRandomQuote();
             }
 
             $('#homeButton').click(function () {
