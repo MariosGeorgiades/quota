@@ -3,324 +3,302 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quote App</title>
+    <title>Quota</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f0f0f0;
-            color: #333;
             margin: 0;
-            padding: 0;
-            text-align: center;
-        }
-        .container {
-            max-width: 800px;
-            margin: auto;
-            padding: 20px;
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        .quote-post {
-            font-size: 1.5em;
-            margin: 20px 0;
-        }
-        .quote-explanation {
-            font-size: 1.2em;
-            color: #666;
-        }
-        button {
-            padding: 10px 20px;
-            font-size: 1em;
-            margin: 10px;
-            border: none;
-            border-radius: 5px;
-            background: #007BFF;
+            font-family: 'Georgia', serif;
+            background: url('/quota.github.io/image.png') no-repeat center center fixed;
+            background-size: cover;
             color: #fff;
-            cursor: pointer;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
-        button:hover {
-            background: #0056b3;
+
+        .navbar {
+            display: flex;
+            justify-content: center;
+            background: linear-gradient(135deg, #333, #000);
+            padding: 10px;
+            width: 100%;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            border-bottom: 2px solid #ffcc66;
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: 1000;
         }
-        #stopTalkingButton {
+
+        .navbar a {
+            color: #ffffff;
+            padding: 12px 16px;
+            text-decoration: none;
+            text-align: center;
+            font-size: 16px;
+            transition: background 0.3s, transform 0.3s;
+            margin: 0 5px;
+            border-radius: 5px;
+        }
+
+        .navbar a:nth-child(1) {
+            background-color: #ff9966;
+        }
+
+        .navbar a:nth-child(2) {
+            background-color: #ffcc66;
+        }
+
+        .navbar a:hover {
+            transform: scale(1.1);
+            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .content {
             display: none;
+            padding: 15px;
+            text-align: center;
+            width: 100%;
+            max-width: 300px;
+            margin-top: 60px;
+            margin-left: auto;
+            margin-right: auto;
         }
-        .home-content, .daily-quotes-content {
-            display: none;
-        }
-        .home-content.active, .daily-quotes-content.active {
+
+        .content.active {
             display: block;
         }
-        select {
+
+        .container,
+        .daily-quotes-container {
+            width: 100%;
+            max-width: 300px;
             padding: 10px;
-            font-size: 1em;
-            margin: 20px 0;
+            background: rgba(255, 204, 128, 0.9);
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            animation: fadeIn 2s ease-in-out;
+            text-align: center;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: #333;
+            font-family: 'Arial', sans-serif;
+        }
+
+        button {
+            background: #ffcc66;
+            color: #333;
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.6s ease, transform 0.6s ease;
+            font-size: 1rem;
+            font-family: 'Courier New', monospace;
+        }
+
+        button:hover {
+            background: #ff9966;
+            transform: scale(1.1);
+        }
+
+        #quoteText {
+            margin-top: 1rem;
+            font-size: 1.25rem;
+            opacity: 0;
+            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+            line-height: 1.4;
+            color: #333;
+            font-family: 'Times New Roman', serif;
+        }
+
+        .quote-post {
+            margin-bottom: 10px;
+            padding: 10px;
+            background-color: rgba(255, 255, 255, 0.1);
+            border-radius: 5px;
+            text-align: left;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        @media (min-width: 768px) {
+            .navbar a {
+                padding: 14px 20px;
+                font-size: 18px;
+                margin: 0 10px;
+            }
+
+            .content {
+                padding: 20px;
+                max-width: 500px;
+                margin-top: 80px;
+            }
+
+            .container,
+            .daily-quotes-container {
+                max-width: 500px;
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            button {
+                font-size: 1.5rem;
+                padding: 0.75rem 1.5rem;
+            }
+
+            #quoteText {
+                font-size: 1.75rem;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Quote App</h1>
-        <select id="languageSelect">
-            <option value="en-US">English</option>
-            <option value="el-GR">Greek</option>
-            <option value="zh-CN">Chinese</option>
-        </select>
-        <div class="home-content active">
-            <button id="showQuoteButton">Show Random Quote</button>
-            <button id="dailyQuotesButton">Show Daily Quote</button>
-            <button id="voiceAssistantButton">Voice Assistant</button>
-            <button id="homeButton">Home</button>
-        </div>
-        <div class="daily-quotes-content">
-            <div class="daily-quotes-container"></div>
-        </div>
-        <div id="quoteText"></div>
-        <button id="stopTalkingButton">Stop Talking</button>
+    <div class="navbar">
+        <a href="#" id="homeButton">Quota</a>
+        <a href="#" id="dailyQuotesButton">ΚΑΘΗΜΕΡΙΝΗ ΦΙΛΟΣΟΦΙΑ</a>
     </div>
-
+    <div class="content home-content active">
+        <div class="container">
+            <h1>Παν ουλα λάθος</h1>
+            <button id="showQuoteButton">Σήκου Πάνω ΡΕΕΕΕΕ</button>
+            <p id="quoteText"></p>
+            <audio id="audioPlayer" src="/quota.github.io/STAND_UP.mp3" preload="auto"></audio>
+        </div>
+    </div>
+    <div class="content daily-quotes-content">
+        <div class="daily-quotes-container"></div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const quotes = {
-                "en-US": [
-                  "The strength in life does not come from what you can do now but from doing the things you believed you could not.",
-                    "He who is not content with what he has will not be content with what he wants to have — Socrates",
-                    "Life is a journey, enjoy it because there is no return ticket.",
-                    "Every day you should not be a slave to yourself, you must surpass your limits.",
-                    "Everything starts and ends in your mind. Whatever you give power to, controls you.",
-                    "Everyone's limits are those they set for themselves.",
-                    "You don't need to say what you know. However, it is essential to know what you say.",
-                    "The biggest mistake you can make in your life is to live in fear of making a mistake.",
-                    "Close the window that bothers you, no matter how beautiful the view is.",
-                    "The world did not get worse; you just opened your eyes.",
-                    "Life is the result of the choices we make.",
-                    "Our knowledge is limited, but our ignorance is infinite.",
-                    "True wisdom is not knowing many things, but understanding the value of knowledge.",
-                    "True wisdom comes from experience and self-awareness.",
-                    "The mind is like an open book. Understanding comes when you read it attentively.",
-                    "Life is like a river flowing continuously, and we are its travelers.",
-                    "Self-awareness is the first step towards inner peace.",
-                    "Happiness is not a state but a process.",
-                    "True strength comes when you learn to control yourself, not when you try to control everything.",
-                    "True freedom is the ability to live with virtue.",
-                    "Love is the force that unites hearts and rejuvenates the soul.",
-                    "Wisdom comes when you understand that you do not need to have all the answers.",
-                    "Kindness is the language that everyone can understand.",
-                    "Friendship is the soul shared between two hearts.",
-                    "Life is not measured by the number of breaths we take, but by the moments that take our breath away.",
-                    "The greatest success is being able to accept yourself.",
-                    "Patience is the virtue of the wise.",
-                    "Love is the strongest force in the universe.",
-                    "Inner peace is the greatest gift you can give yourself.",
-                    "Life is never perfect, but perfect moments are what make it unique.",
-                    "Truth is often hidden behind the words not spoken.",
-                    "A sense of humor is the best medicine for tough times."
-                ],
-                "el-GR": [
-                    "Η δύναμη στη ζωή δεν προέρχεται από αυτό που μπορείς να κάνεις τώρα, αλλά από το να κάνεις αυτά που πίστευες ότι δεν μπορούσες.",
-                    "Όποιος δεν είναι ευχαριστημένος με αυτά που έχει, δεν θα είναι ευχαριστημένος με αυτά που θέλει να έχει — Σωκράτης",
-                    "Η ζωή είναι ένα ταξίδι, απόλαυσέ το γιατί δεν υπάρχει επιστροφή.",
-                    "Κάθε μέρα δεν πρέπει να είσαι σκλάβος του εαυτού σου, πρέπει να ξεπερνάς τα όριά σου.",
-                    "Τα πάντα αρχίζουν και τελειώνουν στο μυαλό σου. Ό,τι δίνεις δύναμη, σε ελέγχει.",
-                    "Τα όρια του καθενός είναι αυτά που ο ίδιος βάζει στον εαυτό του.",
-                    "Δεν χρειάζεται να λες τι ξέρεις. Είναι όμως απαραίτητο να ξέρεις τι λες.",
-                    "Το μεγαλύτερο λάθος που μπορείς να κάνεις στην ζωή σου είναι να ζεις με τον φόβο μήπως κάνεις λάθος.",
-                    "Κλείσε το παράθυρο που σε ενοχλεί όσο όμορφη και αν είναι η θέα που βλέπεις.",
-                    "Ο κόσμος δεν έγινε χειρότερος απλά άνοιξαν τα μάτια σου.",
-                    "Η ζωή είναι το αποτέλεσμα των επιλογών που κάνουμε.",
-                    "Η γνώση μας είναι περιορισμένη, αλλά η άγνοιά μας είναι ατελείωτη.",
-                    "Η αληθινή σοφία δεν είναι να γνωρίζεις πολλά, αλλά να κατανοείς την αξία της γνώσης.",
-                    "Η πραγματική σοφία έρχεται από την εμπειρία και την αυτογνωσία.",
-                    "Ο νους είναι σαν ένα ανοιχτό βιβλίο. Η κατανόηση έρχεται όταν το διαβάζεις με προσοχή.",
-                    "Η ζωή είναι σαν ένα ποτάμι που ρέει συνεχώς, και εμείς είμαστε οι ταξιδιώτες του.",
-                    "Η αυτογνωσία είναι το πρώτο βήμα προς την εσωτερική ειρήνη.",
-                    "Η ευτυχία δεν είναι μια κατάσταση αλλά μια διαδικασία.",
-                    "Η πραγματική δύναμη έρχεται όταν μαθαίνεις να ελέγχεις τον εαυτό σου, όχι όταν προσπαθείς να ελέγξεις τα πάντα.",
-                    "Η πραγματική ελευθερία είναι η ικανότητα να ζεις με αρετή.",
-                    "Η αγάπη είναι η δύναμη που ενώνει τις καρδιές και αναζωογονεί την ψυχή.",
-                    "Η σοφία έρχεται όταν καταλαβαίνεις ότι δεν χρειάζεται να έχεις όλες τις απαντήσεις.",
-                    "Η καλοσύνη είναι η γλώσσα που ο καθένας μπορεί να καταλάβει.",
-                    "Η φιλία είναι η ψυχή που μοιράζεται ανάμεσα σε δύο καρδιές.",
-                    "Η ζωή δεν μετριέται από τον αριθμό των αναπνοών που παίρνουμε, αλλά από τις στιγμές που μας κόβουν την ανάσα.",
-                    "Η μεγαλύτερη επιτυχία είναι να μπορείς να αποδεχτείς τον εαυτό σου.",
-                    "Η υπομονή είναι η αρετή των σοφών.",
-                    "Η αγάπη είναι η πιο ισχυρή δύναμη στο σύμπαν.",
-                    "Η ηρεμία της ψυχής είναι το μεγαλύτερο δώρο που μπορείς να δώσεις στον εαυτό σου.",
-                    "Η ζωή δεν είναι ποτέ τέλεια, αλλά οι τέλειες στιγμές είναι εκείνες που την κάνουν μοναδική.",
-                    "Η αλήθεια συχνά κρύβεται πίσω από τα λόγια που δεν λέγονται.",
-                    "Η αίσθηση του χιούμορ είναι το καλύτερο φάρμακο για τις δύσκολες στιγμές."
-                ],
-                "zh-CN": [
-                   "生活中的力量不来自于你现在能做什么，而是来自于你做那些你曾经认为做不到的事情。",
-                    "一个不满足于他所拥有的人，将不会满足于他想要拥有的东西 — 苏格拉底",
-                    "生活是一段旅程，尽情享受它，因为没有回程票。",
-                    "每一天你都不应该成为自己奴隶，你必须超越自己的极限。",
-                    "一切都始于你心中并结束于你心中。你赋予力量的事物会控制你。",
-                    "每个人的极限就是他为自己设定的极限。",
-                    "你不需要说你知道什么。但是，了解你说什么是很重要的。",
-                    "你在生活中能犯的最大错误就是害怕犯错。",
-                    "关闭那个让你不安的窗口，无论风景多么美丽。",
-                    "世界没有变得更糟糕，只是你睁开了眼睛。",
-                    "生活是我们所做选择的结果。",
-                    "我们的知识有限，但我们的无知是无限的。",
-                    "真正的智慧不是知道很多事情，而是理解知识的价值。",
-                    "真正的智慧来自于经验和自我意识。",
-                    "心灵就像一本打开的书。理解的来临是在你认真阅读的时候。",
-                    "生活就像一条不断流淌的河流，我们是其旅行者。",
-                    "自我意识是迈向内心平静的第一步。",
-                    "幸福不是一种状态，而是一个过程。",
-                    "真正的力量来自于你学会控制自己，而不是试图控制一切。",
-                    "真正的自由是能够以美德生活。",
-                    "爱是将心灵联系在一起并使灵魂焕发活力的力量。",
-                    "智慧来自于理解你不需要所有的答案。",
-                    "善良是每个人都能理解的语言。",
-                    "友谊是两个心灵之间共享的灵魂。",
-                    "生活的价值不在于我们呼吸的次数，而在于那些让我们屏住呼吸的瞬间。",
-                    "最大的成功是能够接受自己。",
-                    "耐心是智慧的美德。",
-                    "爱是宇宙中最强大的力量。",
-                    "内心的平静是你能给自己的最大礼物。",
-                    "生活从来不是完美的，但完美的时刻使它独特。",
-                    "真相常常隐藏在未说出的言辞背后。",
-                    "幽默感是面对艰难时刻的最佳良药。"
-                ]
-            };
+        $(document).ready(function () {
+            const quotes = [
+                "Η δύναμη στην ζωή δεν έρχεται από τι μπορείς να κάνεις τώρα αλλά έρχεται από να κάνεις τα πράγραμα που πίστευες ότι δεν θα μπορούσες",
+                "Αυτός που δεν είναι ευχαριστημένος με αυτό που έχει δεν θα είναι ευχαριστημένος με αυτό που θα ήθελε να έχει — Σωκράτης",
+                "Η ζωή είναι μια βόλτα απόλαυσε την γιατί δεν υπάρχει εισιτήριο επιστροφής",
+                "Πρέπει καθημερινά Να μην είσαι σκλάβος του εαυτού σου πρέπει να ξεπερνάς τα όρια σου",
+                "Όλα ξεκινούν και τελειώνουν στο μυαλό σου. Σε ότι δίνεις δύναμη αυτό σε εξουσιάζει.",
+                "Τα όρια του καθενός είναι αυτά που ο ίδιος βάζει στον εαυτό του",
+                "Δεν χρειάζεται να λες τι ξέρεις. Είναι όμως απαραίτητο να ξέρεις τι λες",
+                "Το μεγαλύτερο λάθος που μπορείς να κάνεις στην ζωή σου είναι να ζεις με τον φόβο μήπως κάνεις λάθος",
+                "Κλείσε το παράθυρο που σε ενοχλεί όσο όμορφη και αν είναι η θέα που βλέπεις.",
+                "Ο κόσμος δεν έγινε χειρότερος απλά άνοιξαν τα μάτια σου",
+                "Η ζωή είναι το αποτέλεσμα των επιλογών που κάνουμε.",
+                "Η γνώση μας είναι περιορισμένη, αλλά η άγνοιά μας είναι ατελείωτη.",
+                "Η αληθινή σοφία δεν είναι να γνωρίζεις πολλά, αλλά να κατανοείς την αξία της γνώσης.",
+                "Η πραγματική σοφία έρχεται από την εμπειρία και την αυτογνωσία.",
+                "Ο νους είναι σαν ένα ανοιχτό βιβλίο. Η κατανόηση έρχεται όταν το διαβάζεις με προσοχή.",
+                "Η ζωή είναι σαν ένα ποτάμι που ρέει συνεχώς, και εμείς είμαστε οι ταξιδιώτες του.",
+                "Η αυτογνωσία είναι το πρώτο βήμα προς την εσωτερική ειρήνη.",
+                "Η ευτυχία δεν είναι μια κατάσταση αλλά μια διαδικασία.",
+                "Η αλήθεια δεν έχει να κάνει με αυτό που λέγεται, αλλά με αυτό που κατανοείται.",
+                "Η σκέψη είναι το εργαλείο που χρησιμοποιούμε για να κατανοήσουμε τον κόσμο γύρω μας.",
+                "Η φιλοσοφία είναι η τέχνη του να ζεις σύμφωνα με την αλήθεια που ανακαλύπτεις.",
+                "Η ζωή είναι η συνεχής αναζήτηση για νόημα μέσα από τις εμπειρίες μας.",
+                "Η εσωτερική γαλήνη προέρχεται από την αποδοχή της πραγματικότητας.",
+                "Η φιλοσοφία μας διδάσκει ότι η αλήθεια δεν είναι πάντα απλή, αλλά είναι πάντα πολύτιμη.",
+                "Η ζωή είναι γεμάτη από μικρές αλήθειες που σχηματίζουν μια μεγαλύτερη εικόνα.",
+                "Η αληθινή ελευθερία έρχεται από την εσωτερική αποδοχή των περιορισμών μας.",
+                "Η σοφία βρίσκεται στην ικανότητα να βλέπουμε την πραγματικότητα χωρίς προκαταλήψεις.",
+                "Η ζωή είναι ένας δρόμος γεμάτος από διασταυρώσεις, και εμείς επιλέγουμε τον προορισμό μας.",
+                "Η έννοια της ευτυχίας εξαρτάται από την εσωτερική μας στάση απέναντι στη ζωή.",
+                "Η φιλοσοφία δεν είναι απλώς μια θεωρητική γνώση, αλλά μια πρακτική καθοδήγηση για τη ζωή.",
+                "Η εσωτερική δύναμη προέρχεται από την κατανόηση του εαυτού μας και των κινήτρων μας.",
+                "Η σοφία είναι η τέχνη να γνωρίζεις πότε να μιλήσεις και πότε να σιωπήσεις.",
+                "Η αλήθεια είναι το φως που καθοδηγεί την ψυχή μας στον δρόμο της ευτυχίας.",
+                "Η ζωή είναι ένα ταξίδι συνεχούς μάθησης και αυτογνωσίας.",
+                "Η πραγματική ευτυχία βρίσκεται στην απλότητα και την εσωτερική γαλήνη.",
+                "Η αλήθεια είναι η ενότητα όλων των αντιφάσεων που συνυπάρχουν στην πραγματικότητα.",
+                "Η φιλοσοφία μας διδάσκει ότι η αληθινή ευτυχία είναι αποτέλεσμα της εσωτερικής μας ανάπτυξης."
+            ];
 
-            const apiKey = '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'; 
+            const dailyTips = [
+                "Ξεκίνα την ημέρα σου με ευγνωμοσύνη. Σκέψου τρία πράγματα για τα οποία είσαι ευγνώμον.",
+                "Δώσε προτεραιότητα στην υγεία σου. Κάνε μια σύντομη άσκηση ή βόλτα κάθε μέρα.",
+                "Οργάνωσε την ημέρα σου με μια λίστα προτεραιοτήτων. Αυτό θα σε βοηθήσει να διαχειριστείς καλύτερα το χρόνο σου.",
+                "Δημιούργησε έναν προσωπικό χώρο χαλάρωσης όπου μπορείς να ξεκουραστείς και να ανασυγκροτηθείς.",
+                "Μάθε κάτι νέο κάθε μέρα για να διευρύνεις τις γνώσεις σου.",
+                "Αφιερώστε χρόνο για να συνδεθείς με τους ανθρώπους γύρω σου και να ενισχύσεις τις σχέσεις σου.",
+                "Μην αφήνεις τις μικρές αποτυχίες να σε αποθαρρύνουν. Κάθε αποτυχία είναι μια ευκαιρία για μάθηση.",
+                "Δημιούργησε μια συνήθεια να διαβάζεις ένα βιβλίο ή να ακούς ένα εκπαιδευτικό podcast καθημερινά.",
+                "Κάνε μικρές αλλαγές στη ρουτίνα σου για να ενισχύσεις τη δημιουργικότητά σου.",
+                "Αφιέρωσε χρόνο για να κάνεις κάτι που σε ευχαριστεί και σε αναζωογονεί.",
+                "Καθόρισε στόχους για την ημέρα σου και παρακολούθησε την πρόοδό σου.",
+                "Δημιούργησε μία θετική επιρροή γύρω σου με τη συμπεριφορά και τις ενέργειές σου.",
+                "Συμμετοχή σε μία δραστηριότητα που σε κάνει να νιώθεις χαρούμενος και ευτυχισμένος.",
+                "Μάθε να αναγνωρίζεις και να αποδέχεσαι τα συναισθήματά σου για να επιτύχεις εσωτερική γαλήνη.",
+                "Χρησιμοποίησε τη φαντασία σου για να δεις το μέλλον με αισιοδοξία και ελπίδα.",
+                "Αναγνώρισε τις επιτυχίες σου και γιόρτασέ τες, ακόμη και τις μικρές.",
+                "Δημιούργησε έναν χώρο δημιουργικότητας για να εκφράσεις τις ιδέες σου.",
+                "Δοκίμασε νέες δραστηριότητες και προκλήσεις για να διευρύνεις τους ορίζοντές σου.",
+                "Δώσε προσοχή στην αναπνοή σου και χρησιμοποιήσε την για να ηρεμήσεις και να συγκεντρωθείς.",
+                "Ανασκόπησε την ημέρα σου με αυτοκριτική και σχεδίασε βελτιώσεις για την επόμενη μέρα."
+            ];
 
-            function getRandomQuote(language) {
-                const quotesArray = quotes[language];
-                const randomIndex = Math.floor(Math.random() * quotesArray.length);
-                return quotesArray[randomIndex];
+            let quoteIndex = 0;
+
+            function showQuote() {
+                const quote = quotes[quoteIndex];
+                $('#quoteText').text(quote).css('opacity', 1).css('transform', 'scale(1)');
+                quoteIndex = (quoteIndex + 1) % quotes.length;
             }
 
-            function speakText(text, callback) {
-                const utterance = new SpeechSynthesisUtterance(text);
-                utterance.lang = $('#languageSelect').val();
-                speechSynthesis.speak(utterance);
-                if (callback) {
-                    utterance.onend = callback;
-                }
+            function getDailyTip() {
+                const today = new Date();
+                const tipIndex = today.getDate() % dailyTips.length;
+                return dailyTips[tipIndex];
             }
 
-            function showRandomQuote() {
-                const selectedLanguage = $('#languageSelect').val();
-                const randomQuote = getRandomQuote(selectedLanguage);
-                $('#quoteText').text(randomQuote);
-            }
-
-            function getDailyQuote() {
-                const selectedLanguage = $('#languageSelect').val();
-                return getRandomQuote(selectedLanguage);
-            }
-
-            function startRecognition() {
-                if (!('webkitSpeechRecognition' in window)) {
-                    alert('Speech recognition is not supported in this browser.');
-                    return;
-                }
-                const recognition = new webkitSpeechRecognition();
-                recognition.lang = $('#languageSelect').val();
-                recognition.interimResults = false;
-                recognition.maxAlternatives = 1;
-
-                recognition.onresult = function(event) {
-                    const transcript = event.results[0][0].transcript.toLowerCase();
-                    if (transcript.includes('quote')) {
-                        showRandomQuote();
-                        const quoteText = $('#quoteText').text();
-                        speakText(quoteText);
-                    } else if (transcript.includes('weather')) {
-                        getWeather();
-                    } else {
-                        processVoiceQuery(transcript);
-                    }
-                };
-
-                recognition.start();
-            }
-
-            function stopSpeaking() {
-                speechSynthesis.cancel();
-            }
-
-            function getWeather() {
-                const apiUrl = `https://api.openweathermap.org/data/2.5/weather?q=Athens&appid=YOUR_WEATHER_API_KEY&units=metric&lang=${$('#languageSelect').val()}`;
-                
-                fetch(apiUrl)
-                    .then(response => response.json())
-                    .then(data => {
-                        const temp = data.main.temp;
-                        const description = data.weather[0].description;
-                        const response = `The current temperature is ${temp}°C and the weather is ${description}.`;
-                        speakText(response, returnToQuoteGenerator);
-                    })
-                    .catch(error => {
-                        const errorMessage = "Sorry, I couldn't retrieve the weather information.";
-                        speakText(errorMessage, returnToQuoteGenerator);
-                    });
-            }
-
-            function returnToQuoteGenerator() {
-                $('#homeButton').click(); 
-                $('#stopTalkingButton').hide(); 
-            }
-
-            function processVoiceQuery(query) {
-                fetch('https://api.openai.com/v1/chat/completions', {
-                    method: 'POST',
-                    headers: {
-                        'Authorization': `Bearer ${apiKey}`,
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({
-                        model: "gpt-3.5-turbo",
-                        messages: [{ role: "user", content: query }],
-                        max_tokens: 150
-                    })
-                })
-                .then(response => response.json())
-                .then(data => {
-                    const answer = data.choices[0].message.content;
-                    speakText(answer);
-                })
-                .catch(error => {
-                    const errorMessage = "Sorry, I couldn't process your request.";
-                    speakText(errorMessage);
-                });
+            function displayDailyContent() {
+                const today = new Date();
+                const dayOfMonth = today.getDate();
+                const dailyQuoteIndex = dayOfMonth % quotes.length;
+                const dailyQuote = quotes[dailyQuoteIndex];
+                $('.daily-quotes-container').html(`
+                    <h1>Daily Quote</h1>
+                    <div class="quote-post">
+                        <p>“${dailyQuote}”</p>
+                    </div>
+                    <h2>Tip of the Day</h2>
+                    <div class="quote-post">
+                        <p>${getDailyTip()}</p>
+                    </div>
+                `);
             }
 
             $('#showQuoteButton').click(function () {
-                showRandomQuote();
-                $('#quoteText').css('opacity', '0').css('transform', 'translateY(20px)');
-                setTimeout(() => {
-                    $('#quoteText').css('opacity', '1').css('transform', 'translateY(0)');
-                    const quoteText = $('#quoteText').text();
-                    speakText(quoteText);
-                }, 500);
+                $('#quoteText').css('opacity', 0).css('transform', 'scale(0.9)');
+                setTimeout(showQuote, 400);
+                $('#audioPlayer')[0].play();
+            });
+
+            $('#homeButton').click(function () {
+                $('.content').removeClass('active');
+                $('.home-content').addClass('active');
             });
 
             $('#dailyQuotesButton').click(function () {
-                $('.home-content').removeClass('active');
+                $('.content').removeClass('active');
                 $('.daily-quotes-content').addClass('active');
-                const dailyQuote = getDailyQuote();
-                $('.daily-quotes-container').html(`<div class="quote-post">${dailyQuote}</div>`);
+                displayDailyContent();
             });
 
-            $('#languageSelect').change(function () {
-                const selectedLanguage = $(this).val();
-                const dailyQuote = getDailyQuote();
-                if ($('.daily-quotes-content').hasClass('active')) {
-                    $('.daily-quotes-container').html(`<div class="quote-post">${dailyQuote}</div>`);
-                }
-            });
-
-            $('#voiceAssistantButton').click(startRecognition);
-            $('#stopTalkingButton').click(stopSpeaking);
-            $('#homeButton').click(function () {
-                $('.daily-quotes-content').removeClass('active');
-                $('.home-content').addClass('active');
-            });
+            $('#homeButton').click();
         });
     </script>
 </body>
