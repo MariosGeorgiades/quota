@@ -3,27 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quota</title>
+    <title>Motivational Quotes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
-            font-family: 'Georgia', serif;
+            font-family: 'Roboto', sans-serif;
             background: url('/quota.github.io/image.png') no-repeat center center fixed;
             background-size: cover;
             color: #fff;
             display: flex;
             flex-direction: column;
             align-items: center;
+            transition: background-color 0.5s;
         }
 
         .navbar {
             display: flex;
             justify-content: center;
-            background: linear-gradient(135deg, #333, #000);
-            padding: 10px;
+            background: rgba(0, 0, 0, 0.7);
+            padding: 15px;
             width: 100%;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            border-bottom: 2px solid #ffcc66;
             position: fixed;
             top: 0;
             left: 0;
@@ -32,24 +33,17 @@
 
         .navbar a {
             color: #ffffff;
-            padding: 12px 16px;
+            padding: 12px 20px;
             text-decoration: none;
-            text-align: center;
-            font-size: 16px;
-            transition: background 0.3s, transform 0.3s;
-            margin: 0 5px;
+            font-size: 18px;
+            margin: 0 10px;
             border-radius: 5px;
-        }
-
-        .navbar a:nth-child(1) {
-            background-color: #ff9966;
-        }
-
-        .navbar a:nth-child(2) {
             background-color: #ffcc66;
+            transition: background 0.3s, transform 0.3s;
         }
 
         .navbar a:hover {
+            background-color: #ff9966;
             transform: scale(1.1);
             box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
         }
@@ -59,35 +53,29 @@
             padding: 15px;
             text-align: center;
             width: 100%;
-            max-width: 300px;
-            margin-top: 60px;
-            margin-left: auto;
-            margin-right: auto;
+            max-width: 600px;
+            margin-top: 80px;
+            transition: opacity 0.5s ease-in-out;
         }
 
         .content.active {
             display: block;
+            opacity: 1;
         }
 
         .container,
         .daily-quotes-container {
-            width: 100%;
-            max-width: 300px;
-            padding: 10px;
             background: rgba(255, 204, 128, 0.9);
             border-radius: 10px;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-            animation: fadeIn 2s ease-in-out;
-            text-align: center;
-            margin-left: auto;
-            margin-right: auto;
+            padding: 20px;
+            margin: 20px auto;
+            animation: fadeIn 1s ease-in-out;
         }
 
-        h1 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
+        h1, h2 {
             color: #333;
-            font-family: 'Arial', sans-serif;
+            font-family: 'Montserrat', sans-serif;
         }
 
         button {
@@ -99,7 +87,6 @@
             cursor: pointer;
             transition: background 0.6s ease, transform 0.6s ease;
             font-size: 1rem;
-            font-family: 'Courier New', monospace;
         }
 
         button:hover {
@@ -109,12 +96,10 @@
 
         #quoteText {
             margin-top: 1rem;
-            font-size: 1.25rem;
-            opacity: 0;
-            transition: opacity 0.4s ease-in-out, transform 0.4s ease-in-out;
+            font-size: 1.5rem;
             line-height: 1.4;
             color: #333;
-            font-family: 'Times New Roman', serif;
+            font-family: 'Roboto', sans-serif;
         }
 
         .quote-post {
@@ -143,13 +128,13 @@
 
             .content {
                 padding: 20px;
-                max-width: 500px;
+                max-width: 600px;
                 margin-top: 80px;
             }
 
             .container,
             .daily-quotes-container {
-                max-width: 500px;
+                max-width: 600px;
                 padding: 20px;
             }
 
@@ -188,10 +173,10 @@
     <script>
         $(document).ready(function () {
             const quotes = [
-                "Η δύναμη στην ζωή δεν έρχεται από τι μπορείς να κάνεις τώρα αλλά έρχεται από να κάνεις τα πράγραμα που πίστευες ότι δεν θα μπορούσες",
+                "Η δύναμη στην ζωή δεν έρχεται από τι μπορείς να κάνεις τώρα αλλά έρχεται από να κάνεις τα πράγματα που πίστευες ότι δεν θα μπορούσες",
                 "Αυτός που δεν είναι ευχαριστημένος με αυτό που έχει δεν θα είναι ευχαριστημένος με αυτό που θα ήθελε να έχει — Σωκράτης",
                 "Η ζωή είναι μια βόλτα απόλαυσε την γιατί δεν υπάρχει εισιτήριο επιστροφής",
-                "Πρέπει καθημερινά Να μην είσαι σκλάβος του εαυτού σου πρέπει να ξεπερνάς τα όρια σου",
+                "Πρέπει καθημερινά να μην είσαι σκλάβος του εαυτού σου πρέπει να ξεπερνάς τα όρια σου",
                 "Όλα ξεκινούν και τελειώνουν στο μυαλό σου. Σε ότι δίνεις δύναμη αυτό σε εξουσιάζει.",
                 "Τα όρια του καθενός είναι αυτά που ο ίδιος βάζει στον εαυτό του",
                 "Δεν χρειάζεται να λες τι ξέρεις. Είναι όμως απαραίτητο να ξέρεις τι λες",
@@ -207,24 +192,7 @@
                 "Η αυτογνωσία είναι το πρώτο βήμα προς την εσωτερική ειρήνη.",
                 "Η ευτυχία δεν είναι μια κατάσταση αλλά μια διαδικασία.",
                 "Η αλήθεια δεν έχει να κάνει με αυτό που λέγεται, αλλά με αυτό που κατανοείται.",
-                "Η σκέψη είναι το εργαλείο που χρησιμοποιούμε για να κατανοήσουμε τον κόσμο γύρω μας.",
-                "Η φιλοσοφία είναι η τέχνη του να ζεις σύμφωνα με την αλήθεια που ανακαλύπτεις.",
-                "Η ζωή είναι η συνεχής αναζήτηση για νόημα μέσα από τις εμπειρίες μας.",
-                "Η εσωτερική γαλήνη προέρχεται από την αποδοχή της πραγματικότητας.",
-                "Η φιλοσοφία μας διδάσκει ότι η αλήθεια δεν είναι πάντα απλή, αλλά είναι πάντα πολύτιμη.",
-                "Η ζωή είναι γεμάτη από μικρές αλήθειες που σχηματίζουν μια μεγαλύτερη εικόνα.",
-                "Η αληθινή ελευθερία έρχεται από την εσωτερική αποδοχή των περιορισμών μας.",
-                "Η σοφία βρίσκεται στην ικανότητα να βλέπουμε την πραγματικότητα χωρίς προκαταλήψεις.",
-                "Η ζωή είναι ένας δρόμος γεμάτος από διασταυρώσεις, και εμείς επιλέγουμε τον προορισμό μας.",
-                "Η έννοια της ευτυχίας εξαρτάται από την εσωτερική μας στάση απέναντι στη ζωή.",
-                "Η φιλοσοφία δεν είναι απλώς μια θεωρητική γνώση, αλλά μια πρακτική καθοδήγηση για τη ζωή.",
-                "Η εσωτερική δύναμη προέρχεται από την κατανόηση του εαυτού μας και των κινήτρων μας.",
-                "Η σοφία είναι η τέχνη να γνωρίζεις πότε να μιλήσεις και πότε να σιωπήσεις.",
-                "Η αλήθεια είναι το φως που καθοδηγεί την ψυχή μας στον δρόμο της ευτυχίας.",
-                "Η ζωή είναι ένα ταξίδι συνεχούς μάθησης και αυτογνωσίας.",
-                "Η πραγματική ευτυχία βρίσκεται στην απλότητα και την εσωτερική γαλήνη.",
-                "Η αλήθεια είναι η ενότητα όλων των αντιφάσεων που συνυπάρχουν στην πραγματικότητα.",
-                "Η φιλοσοφία μας διδάσκει ότι η αληθινή ευτυχία είναι αποτέλεσμα της εσωτερικής μας ανάπτυξης."
+                "Η σκέψη είναι το εργαλείο που χρησιμοποιούμε για να κατανοήσουμε τον κόσμο γύρω μας."
             ];
 
             const dailyTips = [
@@ -237,17 +205,7 @@
                 "Μην αφήνεις τις μικρές αποτυχίες να σε αποθαρρύνουν. Κάθε αποτυχία είναι μια ευκαιρία για μάθηση.",
                 "Δημιούργησε μια συνήθεια να διαβάζεις ένα βιβλίο ή να ακούς ένα εκπαιδευτικό podcast καθημερινά.",
                 "Κάνε μικρές αλλαγές στη ρουτίνα σου για να ενισχύσεις τη δημιουργικότητά σου.",
-                "Αφιέρωσε χρόνο για να κάνεις κάτι που σε ευχαριστεί και σε αναζωογονεί.",
-                "Καθόρισε στόχους για την ημέρα σου και παρακολούθησε την πρόοδό σου.",
-                "Δημιούργησε μία θετική επιρροή γύρω σου με τη συμπεριφορά και τις ενέργειές σου.",
-                "Συμμετοχή σε μία δραστηριότητα που σε κάνει να νιώθεις χαρούμενος και ευτυχισμένος.",
-                "Μάθε να αναγνωρίζεις και να αποδέχεσαι τα συναισθήματά σου για να επιτύχεις εσωτερική γαλήνη.",
-                "Χρησιμοποίησε τη φαντασία σου για να δεις το μέλλον με αισιοδοξία και ελπίδα.",
-                "Αναγνώρισε τις επιτυχίες σου και γιόρτασέ τες, ακόμη και τις μικρές.",
-                "Δημιούργησε έναν χώρο δημιουργικότητας για να εκφράσεις τις ιδέες σου.",
-                "Δοκίμασε νέες δραστηριότητες και προκλήσεις για να διευρύνεις τους ορίζοντές σου.",
-                "Δώσε προσοχή στην αναπνοή σου και χρησιμοποιήσε την για να ηρεμήσεις και να συγκεντρωθείς.",
-                "Ανασκόπησε την ημέρα σου με αυτοκριτική και σχεδίασε βελτιώσεις για την επόμενη μέρα."
+                "Αφιέρωσε χρόνο για να κάνεις κάτι που σε ευχαριστεί και σε αναζωογονεί."
             ];
 
             let quoteIndex = 0;
