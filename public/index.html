@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motivational Quotes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="script.js"></script>
+    <script>
+
+      </script>
+</head>
+<body>
+    <div class="navbar">
+        <a href="#" id="homeButton">Quota</a>
+        <button hidden id="adminLoginButton" class="tiny-button">Admin</button>
+        <button id="toggleLanguageButton" class="tiny-button">English</button>
+        <button id="loginBtn" class="tiny-button">Login</button>
+    </div>
+    <div class="content home-content active">
+        <div class="container">
+            <h1 id="title">Παν ουλα λάθος!</h1>
+            <button id="showQuoteButton">Σήκου Πάνω ΡΕΕΕΕΕ</button>
+            <p id="quoteText"></p>
+        </div>
+    </div>
+    <script>
+        $(document).ready(function () {
+            let language = "greek"; // Default language
+            const greekQuotes = [
+                "Πίστεψε στον εαυτό σου και όλα είναι δυνατά.",
+                "Το μυστικό της επιτυχίας είναι να ξεκινήσεις.",
+                "Μην σταματάς ποτέ να προσπαθείς για το καλύτερο.",
+                "Τα όνειρα δεν δουλεύουν, αν δεν δουλεύεις κι εσύ.",
+                "Η κάθε μέρα είναι μια καινούργια ευκαιρία.",
+                "Δεν είναι ποτέ αργά να γίνεις αυτό που θα μπορούσες να είσαι.",
+                "Τα εμπόδια είναι η αρχή κάθε επιτυχίας.",
+                "Μην φοβάσαι να αποτύχεις, φόβησου να μην προσπαθήσεις.",
+                "Οι μεγάλες αλλαγές αρχίζουν με μικρά βήματα.",
+                "Το θάρρος είναι το πρώτο βήμα προς την επιτυχία."
+            ];
+
+            const englishQuotes = [
+                "Believe in yourself, and anything is possible.",
+                "The secret of success is to start.",
+                "Never stop striving for the best.",
+                "Dreams don’t work unless you do.",
+                "Every day is a new opportunity.",
+                "It’s never too late to be what you might have been.",
+                "Obstacles are the beginning of every success.",
+                "Don’t fear failure, fear not trying.",
+                "Great changes begin with small steps.",
+                "Courage is the first step to success."
+            ];
+
+            var quotes = greekQuotes;
+            let quoteIndex = 0;
+
+            function showQuote() {
+                $('#quoteText').css('opacity', 0).css('transform', 'scale(0.9)');
+                setTimeout(() => {
+                    const quoteL = document.getElementById("toggleLanguageButton");
+                    if(quoteL == "English") {quotes = englishQuotes; console.log(quoteL) }
+                    $('#quoteText')
+                        .text(quotes[quoteIndex])
+                        .css('opacity', 1)
+                        .css('transform', 'scale(1)');
+                    quoteIndex = (quoteIndex + 1) % quotes.length;
+                }, 400);
+                $('#audioPlayer')[0]?.play();
+            }
+
+            $('#showQuoteButton').click(showQuote);
+
+            $('#toggleLanguageButton').click(function () {
+                if (language == "greek") {
+                    language = "english";
+                    quotes = englishQuotes;
+                    $('#title').text("Everything is Possible");
+                    $('#showQuoteButton').text("Stand Up!");
+                    $(this).text("Greek");
+                } else {
+                    language = "greek";
+                    quotes = greekQuotes;
+                    $('#title').text("Παν ουλα λάθος");
+                    $('#showQuoteButton').text("Σήκου Πάνω ΡΕΕΕΕΕ");
+                    $(this).text("English");
+                }
+                quoteIndex = 0; // Reset the quote index
+            });
+
+            // $('#adminLoginButton').click(function () {
+            //     const enteredPassword = prompt("Enter the admin password:");
+            //     if (enteredPassword === "123") {
+            //         window.open("admin.html", "_blank");
+            //     } else {
+            //         alert("Incorrect password! Access denied.");
+            //     }
+            // });
+
+            $('#homeButton').click(); // Initialize to home view
+        });
+    </script>
+</body>
+</html>

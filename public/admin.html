@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - Manage Quotes</title>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* General Styles */
+        body {
+            margin: 0;
+            font-family: 'Roboto', sans-serif;
+            background-color: #f4f4f4;
+            color: #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .admin-wrapper {
+            display: flex;
+            flex-wrap: wrap;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        .admin-sidebar {
+            flex: 1;
+            min-width: 250px;
+            background: rgba(0, 0, 0, 0.8);
+            color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            max-height: 100vh;
+            overflow-y: auto;
+        }
+
+        .admin-sidebar h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .admin-sidebar ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .admin-sidebar ul li {
+            margin-bottom: 10px;
+        }
+
+        .admin-sidebar ul li a, .sidebar-button {
+            display: block;
+            color: #ffffff;
+            text-decoration: none;
+            background-color: #ffcc66;
+            padding: 12px;
+            border-radius: 5px;
+            text-align: center;
+            font-size: 14px;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        .admin-sidebar ul li a:hover, .sidebar-button:hover {
+            background-color: #ff9966;
+            transform: scale(1.05);
+        }
+
+        .admin-main {
+            flex: 3;
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            margin-left: 10px;
+            margin-bottom: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+
+        .admin-section {
+            margin-bottom: 20px;
+        }
+
+        .admin-section h2 {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 18px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+
+        input, select, button {
+            width: 100%;
+            margin: 10px 0;
+            padding: 10px;
+            font-size: 14px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button.action-button {
+            background-color: #ffcc66;
+            color: #333;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.3s ease;
+        }
+
+        button.action-button:hover {
+            background-color: #ff9966;
+            transform: scale(1.05);
+        }
+
+        /* Mobile Specific Styles */
+        @media (max-width: 768px) {
+            .admin-wrapper {
+                flex-direction: column;
+                padding: 10px;
+            }
+
+            .admin-sidebar {
+                margin: 0 0 20px 0;
+                padding: 15px;
+                text-align: center;
+            }
+
+            .admin-main {
+                margin: 0;
+                padding: 15px;
+            }
+
+            input, select, button {
+                font-size: 16px;
+                padding: 12px;
+            }
+
+            .admin-section h2 {
+                font-size: 18px;
+            }
+
+            .admin-sidebar ul li a {
+                font-size: 16px;
+                padding: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .admin-sidebar {
+                padding: 10px;
+            }
+
+            .admin-sidebar ul li a {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            input, select, button {
+                font-size: 14px;
+                padding: 10px;
+            }
+
+            .admin-section h2 {
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="admin-wrapper">
+        <aside class="admin-sidebar">
+            <h2>Admin Panel</h2>
+            <ul>
+                <li><a href="#viewQuotes">View All Quotes</a></li>
+                <li><a href="#addQuote">Add a Quote</a></li>
+                <li><a href="#removeQuote">Remove a Quote</a></li>
+                <li><button id="goBackButton" class="sidebar-button"><a href="/">Go Back</a></button></li>
+            </ul>
+        </aside>
+        <main class="admin-main">
+            <section id="viewQuotes" class="admin-section">
+                <h2>All Quotes</h2>
+                <ul id="quoteList" class="quote-list"></ul>
+            </section>
+            <section id="addQuote" class="admin-section">
+                <h2>Add a New Quote</h2>
+                <input type="text" id="newQuoteText" placeholder="Enter a new quote">
+                <button id="addQuoteButton" class="action-button">Add Quote</button>
+            </section>
+            <section id="removeQuote" class="admin-section">
+                <h2>Remove a Quote</h2>
+                <select id="removeQuoteDropdown"></select>
+                <button id="removeQuoteButton" class="action-button">Remove Selected Quote</button>
+            </section>
+        </main>
+    </div>
+    <script src="admin.js"></script>
+</body>
+</html>
